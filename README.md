@@ -1,1 +1,1 @@
-This page can be seen at: http://brainwy.github.io/liclipse.page/
+This page can be seen at: http://brainwy.github.io/liclipse/
