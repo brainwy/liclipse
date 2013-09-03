@@ -13,59 +13,100 @@
     <![endif]-->
   </head>
   <body>
+
+
     <div class="wrapper">
       <header>
         <h1>LiClipse</h1>
-        <p>Lightweight editors and theming for Eclipse</p>
+        <p>Lightweight editors, theming and usability improvements for Eclipse</p>
 
-        <p class="view"><a href="https://github.com/brainwy/liclipse.page">View the Project on GitHub <small>brainwy/liclipse.page</small></a></p>
+
+        <!-- <p class="view"><a href="https://github.com/brainwy/liclipse.page">
+        View the Project on GitHub <small>brainwy/liclipse.page</small></a></p> -->
 
 
         <ul>
-          <li><a href="https://github.com/brainwy/liclipse.page/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/brainwy/liclipse.page/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/brainwy/liclipse.page">View On <strong>GitHub</strong></a></li>
+          <li><a href="http://???">Get It <strong>Download</strong></a></li>
+          <li><a href="https://groups.google.com/forum/#!forum/liclipse">Googlegroups <strong>Forum</strong></a></li>
+          <li><a href="http://liclipse.blogspot.com.br/">View <strong>Blog</strong></a></li>
         </ul>
+
+        Note that LiClipse is still only available for Beta testers that got related perks on its
+        <a href="http://www.indiegogo.com/projects/pydev-and-liclipse-for-a-fast-sexy-and-dark-eclipse">Indiegogo campaign</a>
+        but it should be available for others shortly.
+
+        <!-- <ul>
+          <li class="lifull"><a href="http://???">Help to make it better<strong>Buy</strong></a></li>
+        </ul>
+        When you buy LiClipse, not only are you helping it improve more as well your overall Eclipse experience, but
+        it's also an official supporter of PyDev, so, a part of its earnings also go into making PyDev better. -->
       </header>
       <section>
-        <h3>
-<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
+        <h3>LiClipse provides a new experience for Eclipse users.</h3>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+		<p>With it, users get out of the box:</p>
 
-<pre><code>$ cd your_repo_root/repo_name
+		<ul>
+			<li>Improved theming support based on new Eclipse 4 improvements</li>
+			<li>A fast editor supporting many languages builtin</li>
+			<li>A simple way to add support for a new language</li>
+			<li>Usability improvements for all Eclipse editors</li>
+			<li>Bundling of many useful plugins in a single package</li>
+		</ul>
+
+
+
+		<h3>Theming support based on Eclipse 4 improvements</h3>
+
+		<p>Colors are not only kept consistent among all editors bundling eclipse-color-theme, but
+		the IDE is also themed as a whole, when a new theme is selected, but it also
+		allows for dark themes that are kind to your eyes.</p>
+
+		<p><img src="images/theming.png"/></p>
+
+
+
+
+		<h3>Languages supported</h3>
+
+		<p>LiClipse supports many languages out of the box.</p>
+
+		<p>CoffeScript, C/C++, CSS, Django Templates, HTML, JavaScript, Python, RST, SCSS, XML.</p>
+
+		<p>All those languages feature syntax highlighting, template completion,
+		outline, select/deselect scope, comment/uncomment, auto-indent, linked edition,
+		multi-edition, among others.</p>
+
+		<p>As a note, some editors have <strong>improved support:</strong></p>
+
+		<p>The HTML editor has advanced context-based code-completion.</p>
+
+		<p>The HTML, XML and JavaScript editors have code-analysis and code-formatting features.</p>
+
+
+
+		<h3>Usability improvements for all Eclipse editors</h3>
+
+		<p>At this point, the major improvement is multi-edition supporting all editors
+		(such as PyDev, JDT, etc).</p>
+
+		<p>See: <a href="video/multi_edition_video.html">Multi-Edition Video</a> for details</p>
+
+		Besides the multi-edition (which can be triggered in a Ctrl+K search or with the mouse with Ctrl+Alt+Mouse Click),
+		the rectangular edit is also improved to be triggered with Alt+Click (and stopped with escape).
+
+
+<!-- <pre><code>$ cd your_repo_root/repo_name
 $ git fetch origin
 $ git checkout gh-pages
-</code></pre>
+</code></pre> -->
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
-
-<h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
-
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
-
-<h3>
-<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
-
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
-
-<h3>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
-
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
-
-<h3>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
-
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
       </section>
       <footer>
-        <p>This project is maintained by <a href="https://github.com/brainwy">brainwy</a></p>
         <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
       </footer>
     </div>
     <script src="javascripts/scale.fix.js"></script>
-    
+
   </body>
 </html>
