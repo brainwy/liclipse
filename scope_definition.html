@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="chrome=1">
+        <title>LiClipse by brainwy</title>
+        <link rel="stylesheet" href="stylesheets/styles.css">
+        <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <!--[if lt IE 9]>
+        <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+        <div>
+            <div style="position: fixed; top: 0px; left: 0px; width:100%; background-color:white; border-bottom: 1px solid black;">
+            	<div style="width: 860px; margin: 0 auto;">
+	                <a href="index.html">Main</a>
+            	</div>
+            </div>
+        </div>
+        <div class="wrapper">
+            <header>
+                <h1>LiClipse</h1>
+                <p>Lightweight editors, theming and usability improvements for Eclipse</p>
+                <!-- <p class="view"><a href="https://github.com/brainwy/liclipse.page">
+                    View the Project on GitHub <small>brainwy/liclipse.page</small></a></p> -->
+                <ul>
+                    <!-- <li><a href="http://???">Get It <strong>Download</strong></a></li> -->
+                    <li><a href="https://groups.google.com/forum/#!forum/liclipse">Googlegroups <strong>Forum</strong></a></li>
+                    <li><a href="http://liclipse.blogspot.com.br/">View <strong>Blog</strong></a></li>
+                </ul>
+                Note that LiClipse is still only available for Beta testers that got related perks on its
+                <a href="http://www.indiegogo.com/projects/pydev-and-liclipse-for-a-fast-sexy-and-dark-eclipse">
+                Indiegogo campaign</a>
+                but it should be available for everyone shortly.
+                <!-- <ul>
+                    <li class="lifull"><a href="http://???">Help to make it better<strong>Buy</strong></a></li>
+                    </ul>
+                    When you buy LiClipse, not only are you helping it improve more as well your overall Eclipse experience, but
+                    it's also an official supporter of PyDev, so, a part of its earnings also go into making PyDev better. -->
+            </header>
+            <section>
+                
+<h1>Scope Definition</h1>
+
+One of the main concerns when creating a LiClipse language file is determining how to partition 
+the source code for a language. Based on this information, LiClipse may handle each of
+these scopes differently for highlighting, navigation, outline, etc.
+<br/>
+<br/>
+The main definition for that is the <strong>scope_definition_rules</strong> element, which
+should be a top-level element in the YAML file. This section defines the top-level scopes for a
+file.<br/><br/>
+Afterwards, another top-level entry named <strong>scope</strong> is used to provide the actual
+colors for the contents of a previously matched partition.
+<br/>
+<br/>
+
+The default colors for each partition are given by yet another entry called <strong>scope_to_color_name</strong>.
+The names of the colors which are available can be seen at: <a href="https://github.com/fabioz/eclipse-color-theme/blob/master/com.github.eclipsecolortheme/src/com/github/eclipsecolortheme/ColorThemeKeys.java">ColorThemeKeys.java</a>. 
+The actual colors assigned to each of those will depend on the theme selected. See: <a href="change_color_theme.html">Change Color Theme</a> for details. 
+
+<br/>
+<br/>
+
+Below is a commented example which shows how this works in a simple structure.
+<br/>
+<br/>
+<br/>
+	<strong>Example:</strong>
+	 <pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; 
+	                color: #000000; background-color: #eee;
+	                font-size: 12px; border: 1px dashed #999999;
+	                line-height: 14px; padding: 5px; 
+	                overflow: auto; width: 100%">
+	       <code style="color:#000000;word-wrap:normal;">
+# For this example we have a language which has multi-line comments where we start and end with "###".
+# Also, it has a class definition as: class ClassName, and the indentation is used to define new scopes. 
+
+scope_to_color_name: {
+ multiLineComment: string, # For this example, our multiLineComment will use the string color defined in general > appearance > color theme
+ default: foreground, # In the default scope, we'll use the foreground color
+ # Anything else uses a color with the same name as the scope (i.e.: class, keyword)
+}
+
+scope_definition_rules:
+  # Define that our comment is anything between ###....###
+  # Note that any text that does not match any of these rules is considered to be in the default scope.
+  - {type: MultiLineRule, scope: multiLineComment, start: "###", end: "###", escapeCharacter: \}
+  
+  
+scope: # Here we'll specify sub-partition for top-level scopes
+
+  default: # We're defining things internal to the default scope (in this example we could also define things in the multiLineComment scope).
+  
+    #keyword must be a color at this point already (not a scope)
+    keyword: [class, pass] # Define that we want to consider 'class' and 'pass' as a keyword, colored with the 'keyword' color.
+    
+    sub_rules: [
+      # There are things which may need more work to match in a scope, so, for this case we can
+      # use sub_rules.
+      {type: CompositeRule, sub_rules: [ # A composite rule will only be matched if all containing rules also match.
+        { type: SequenceRule, scope: keyword, sequence: 'class'}, # Define that 'class' is a keyword 
+        { type: OneOrMoreSpacesRule, scope: default}, # After class we need at least a space
+        { type: AnyWordRule, scope: class }] # And any name after that is the class we matched
+      },
+    ]
+
+file_extensions: [liclipse_example] # The extensions matched by this language
+filename: []
+name: LiClipse Example # Name of the language
+
+outline: # Note that we just specify 'flat' items here, the indent is later used to specify that an item creates a new scope.
+  - {type: Scope, scope: [default, class], define: class} # Wherever we have a class inside the default scope we'll show a class icon in the outline.
+
+indent: {
+  type: spaces, # Our example language uses spaces for indenting
+  outline_scopes: [class], # We have to say which outline entries actually create a new scope (so, indent and outline work toghether to specify the tree).
+} 
+
+# Specify that the default comment action (Ctrl+/) creates a multiLineComment and that it should wrap it with '###'.
+comment: {type: multiLine, start: '###', end: '###', scope: multiLineComment}
+</code>
+	 </pre>
+<br/>
+<br/>
+<br/>
+
+The rules available are:
+<br/>
+<br/>
+
+<strong>MultiLineRule</strong>:<br/> 
+
+<ul>
+	A rule which may span multiple lines after we find the start sequence (and which ends at the end sequence).<br/><br/>
+	<strong>start</strong>: The start sequence for the rule<br/>
+	<strong>end</strong>: The end sequence for the rule <br/>
+	<strong>scope</strong>: The scope which this rule defines<br/>
+	<strong>escapeCharacter</strong>: a Character used to escape the next char in the rule<br/>
+	<br/>
+	<strong>Example:</strong>
+	 <pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; 
+	                color: #000000; background-color: #eee;
+	                font-size: 12px; border: 1px dashed #999999;
+	                line-height: 14px; padding: 5px; 
+	                overflow: auto; width: 100%">
+	       <code style="color:#000000;word-wrap:normal;">
+scope_definition_rules:
+  # Matching a multi line comment for HTML
+  - {type: MultiLineRule, scope: multiLineComment, start: '&lt;!--', end: '--&gt;', escapeCharacter: '\0'}
+  # Matching a multi line string in Python
+  - {type: MultiLineRule, scope: singleQuotedMultiLineString, start: "'''", end: "'''", escapeCharacter: \}</code>
+	 </pre>
+</ul>
+<br/>
+
+<strong>OptionalMultiLineRule</strong>: 
+<ul>
+	Same thing as a MultiLineRule, usually used in a CompositeRule to specify that some
+	multi line pattern may be optionally matched.
+</ul>
+<br/>
+
+<strong>RegexpRule</strong>: 
+<ul>
+	Rule that matches a regular expression. The regexp is only matched against a single line and or most 512 chars (whatever is shorter).
+	The regexp uses Java semantics.
+	<br/>
+	<br/><strong>Example:</strong>
+	 <pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; 
+	                color: #000000; background-color: #eee;
+	                font-size: 12px; border: 1px dashed #999999;
+	                line-height: 14px; padding: 5px; 
+	                overflow: auto; width: 100%">
+	       <code style="color:#000000;word-wrap:normal;">
+# Matches a regular expression
+{ type: RegexpRule, regexp: 'aabb', scope: decorator }</code>
+	 </pre>
+</ul>
+<br/>
+<br/>
+
+<strong>AnyWordRule</strong>: 
+<ul>
+	Rule that matches any identifier word 
+	(i.e.: Where the first character matches Character.isJavaIdentifierStart and 
+	the remaining ones match Character.isJavaIdentifierPart).
+	Usually used in a CompositeRule.
+	<br/>
+	<br/><strong>Example:</strong>
+	 <pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; 
+	                color: #000000; background-color: #eee;
+	                font-size: 12px; border: 1px dashed #999999;
+	                line-height: 14px; padding: 5px; 
+	                overflow: auto; width: 100%">
+	       <code style="color:#000000;word-wrap:normal;">
+# Matching any word after detecting we're in a decorator context in Python.
+{ type: AnyWordRule, scope: decorator }</code>
+	 </pre>
+</ul>
+<br/>
+<br/>
+
+<strong>PatternRule</strong>: 
+<ul>
+	A complex rule upon most other rules are built (so, usually there's a more specific rule to a given case).<br/><br/>
+	<strong>startSequence</strong>: the start sequence for this rule<br/>
+	<strong>endSequence</strong>: the end sequence for this rule<br/>
+	<strong>scope</strong>: the scope which this rule defines<br/>
+	<strong>escapeCharacter</strong>: a char used to escape the next char in the rule<br/>
+	<strong>breaksOnEOL</strong>: indicates that the end of line also terminates the pattern<br/>
+	<strong>breaksOnEOF</strong>: indicates that the end of the file also terminates the pattern<br/>
+	<strong>escapeContinuesLine</strong>: If true when the escape char is found, a following new line will not terminate the pattern (even if breaksOnEOL is set).<br/>
+	<br/><strong>Example:</strong>
+	 <pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; 
+	                color: #000000; background-color: #eee;
+	                font-size: 12px; border: 1px dashed #999999;
+	                line-height: 14px; padding: 5px; 
+	                overflow: auto; width: 100%">
+	       <code style="color:#000000;word-wrap:normal;">
+scope_definition_rules:
+  # Matching [xxxx]_ only in the current line
+  - {type: PatternRule, scope: javadocLink, startSequence: '[', 
+     endSequence: ']_', escapeCharacter: '\0', breaksOnEOL: true, 
+     breaksOnEOF: false, escapeContinuesLine: false}</code>
+	 </pre>
+</ul>
+<br/>
+
+<strong>SingleLineRule</strong>: 
+<ul>
+	A rule which must start and end at the same line<br/><br/>
+	
+	<strong>sequence</strong>: the start/end sequence for this rule<br/>
+	<strong>scope</strong>: the scope which this rule defines<br/>
+	<strong>escapeCharacter</strong>: a char used to escape the next char in the rule<br/>
+	<strong>escapeContinuesLine</strong>: If true when the escape char is found, a following new line will not terminate the pattern.<br/>
+	
+	<br/><strong>Example:</strong>
+	 <pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; 
+	                color: #000000; background-color: #eee;
+	                font-size: 12px; border: 1px dashed #999999;
+	                line-height: 14px; padding: 5px; 
+	                overflow: auto; width: 100%">
+	       <code style="color:#000000;word-wrap:normal;">
+scope_definition_rules:
+  # Matching a double quoted string in Python
+  - {type: SingleLineRule, scope: doubleQuotedString, sequence: '"', escapeCharacter: \, escapeContinuesLine: true}</code>
+	 </pre>
+</ul>
+<br/>
+<br/>
+
+<strong>SequenceRule</strong>:
+<ul>
+	Usually used in a CompositeRule to specify that some sequence must be matched.<br/><br/>
+	
+	<strong>sequence</strong>: the exact sequence to be matched in this rule.<br/>
+	<strong>scope</strong>: the scope which this rule defines.<br/>
+	
+	<br/><strong>Example:</strong>
+	 <pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; 
+	                color: #000000; background-color: #eee;
+	                font-size: 12px; border: 1px dashed #999999;
+	                line-height: 14px; padding: 5px; 
+	                overflow: auto; width: 100%">
+	       <code style="color:#000000;word-wrap:normal;">
+#Matching the word 'function'
+{ type: SequenceRule, scope: keyword, sequence: 'function'}</code>
+	 </pre>	
+</ul>
+<br/>
+<br/>
+
+<strong>SequencesRule</strong>:
+<ul>
+	Usually used in a CompositeRule to specify that one of the specified sequences must be matched.<br/><br/>
+	
+	<strong>sequences</strong>: the sequences to be matched (one of them must be matched to validate this rule).<br/>
+	<strong>scope</strong>: the scope which this rule defines.<br/>
+	
+	<br/><strong>Example:</strong>
+	 <pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; 
+	                color: #000000; background-color: #eee;
+	                font-size: 12px; border: 1px dashed #999999;
+	                line-height: 14px; padding: 5px; 
+	                overflow: auto; width: 100%">
+	       <code style="color:#000000;word-wrap:normal;">
+#Matching the word 'function' or 'def'
+{ type: SequenceRule, scope: keyword, sequences: ['function', 'def']}</code>
+	 </pre>	
+</ul>
+<br/>
+<br/>
+
+<strong>OptionalSequenceRule</strong>:
+<ul>
+	Same thing as the SequenceRule to be used in a CompositeRule to optionally match some sequence.
+</ul>
+<br/>
+<br/>
+
+
+<strong>EndOfLineRule</strong>:
+<ul>
+	A rule which starts after a sequence is found and ends at the end of the line.<br/><br/>
+	<strong>start</strong>: the sequence which starts matching this rule.<br/>
+	<strong>scope</strong>: the scope which this rule defines.<br/>
+	
+	<br/><strong>Example:</strong>
+	 <pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; 
+	                color: #000000; background-color: #eee;
+	                font-size: 12px; border: 1px dashed #999999;
+	                line-height: 14px; padding: 5px; 
+	                overflow: auto; width: 100%">
+	       <code style="color:#000000;word-wrap:normal;">
+scope_definition_rules:
+  # Matching a comment in Python
+  - {type: EndOfLineRule, scope: singleLineComment, start: '#'}</code>
+	 </pre>
+</ul>
+<br/>
+<br/>
+
+<strong>OneOrMoreSpacesRule</strong>:
+<ul>
+	Usually used in a CompositeRule match one or more whitespaces. A whitespace is matched if Character.isWhitespace(char) returns true.<br/><br/>
+	<strong>scope</strong>: the scope which this rule defines.<br/>
+</ul>
+<br/>
+<br/>
+
+
+<strong>ZeroOrMoreSpacesRule</strong>:
+<ul>
+	Usually used in a CompositeRule match zero or more whitespaces. A whitespace is matched if Character.isWhitespace(char) returns true.<br/><br/>
+	<strong>scope</strong>: the scope which this rule defines.<br/>
+</ul>
+<br/>
+<br/>
+
+<strong>NumberRule</strong>:
+<ul>
+	A rule which matches a number.<br/><br/>
+	Some examples of numbers matched:<br/>
+	1.3e4 (float with exp), 0xAF (hexa), 1 (int), 33. (float)<br/><br/>
+	
+	<strong>scope</strong>: the scope which this rule defines.<br/>
+</ul>
+
+<br/>
+<br/>
+
+<strong>SwitchLanguageHtmlRule</strong>:
+<ul>
+	This is a special rule so that when we are inside a given script pattern in HTML we consider the contents
+	of that language as a different language (i.e.: for when we embed css, javascript, etc inside HTML).<br/>
+	<br/><strong>Example:</strong>
+	 <pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; 
+	                color: #000000; background-color: #eee;
+	                font-size: 12px; border: 1px dashed #999999;
+	                line-height: 14px; padding: 5px; 
+	                overflow: auto; width: 100%">
+	       <code style="color:#000000;word-wrap:normal;">
+scope_definition_rules:
+  #The SwitchLanguageHtmlRule is a special hand-made rule to match the html script tag.
+  #If there are other 'language' switching cases, this may need to be more flexible.
+  #It create sub-tokens for the tag as the rules here (open_tag, close_tag, class, etc, so, if this
+  #changes, the rule may need to be changed too).
+  - {type: SwitchLanguageHtmlRule, #custom rule matching for: '&lt;script type="???", language="???"&gt;', end: '&lt;/script&gt;' 
+     scope: this, #On a switch, the scope must alway be 'this'
+     tag: 'script',
+     type_attr: {
+        'application/javascript': javascript, 'application/ecmascript': javascript, 'application/x-javascript': javascript, 
+        'application/x-ecmascript': javascript, 'text/javascript': javascript, 'text/ecmascript': javascript, 'text/jscript':javascript
+     },
+     language_attr: {JavaScript: javascript} #the expected language attr to switch to the target language (used with startswith() and case-independent)
+    }
+</code>
+	 </pre>
+</ul>
+<br/>
+<br/>
+
+<strong>IndentedBlockRule</strong>:
+<ul>
+	Rule which will match any indented block after some prefix is found.<br/><br/>
+	<strong>start</strong>: the sequence which starts matching this rule.<br/>
+	<strong>scope</strong>: the scope which this rule defines.<br/>
+	<strong>column</strong>: -1 means it can start anywhere, 0 (default) means it'll only match it if the sequence is found in column 0.<br/>
+	<strong>additional_start</strong>: Optional: it's a list of rules. If given, after matching the start it also has to match these rules (as if it was inside a CompositeRule).<br/>
+	
+	<br/><strong>Example:</strong>
+	 <pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; 
+	                color: #000000; background-color: #eee;
+	                font-size: 12px; border: 1px dashed #999999;
+	                line-height: 14px; padding: 5px; 
+	                overflow: auto; width: 100%">
+	       <code style="color:#000000;word-wrap:normal;">
+scope_definition_rules:
+  #Literal Block (column -1 means it can start anywhere)
+  # literal block::
+  #    xxx xxx xxx
+  #    xxx xxx xxx
+  - {type: IndentedBlockRule, scope: literalBlock, start: '::', column: -1} 
+</code>
+	 </pre>
+</ul>
+<br/>
+<br/>
+
+
+
+<strong>MatchLineStartRule</strong>:
+<ul>
+	This rule should only be used inside a CompositeRule. Matches the start of a line (column 0). It's lenght is always 0.<br/><br/>
+	<strong>scope</strong>: the scope which this rule defines.<br/>
+	
+	<br/><strong>Example:</strong>
+	 <pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; 
+	                color: #000000; background-color: #eee;
+	                font-size: 12px; border: 1px dashed #999999;
+	                line-height: 14px; padding: 5px; 
+	                overflow: auto; width: 100%">
+	       <code style="color:#000000;word-wrap:normal;">
+scope_definition_rules:
+  # Matching an rst title:
+  # xxxxx
+  # ------
+  - {type: CompositeRule, sub_rules:[ #Note: when a composite rule is defined here, 
+                                      # all the scopes in the inner parts must have the same type.
+    { type: MatchLineStartRule, scope: title},
+    { type: SkipLineRule, scope: title},
+    { type: RepeatCharToEolRule, scope: title, chars: ['-', '=', '_', '~', '`']},
+  ]}
+</code>
+	 </pre>
+</ul>
+<br/>
+<br/>
+
+<strong>SkipLineRule</strong>:
+<ul>
+	This rule will skip all the contents of the current line until from the current position. Made to be used inside a CompositeRule.<br/><br/>
+	<strong>scope</strong>: the scope which this rule defines.<br/>
+	
+	<br/><strong>Example:</strong>
+	 <pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; 
+	                color: #000000; background-color: #eee;
+	                font-size: 12px; border: 1px dashed #999999;
+	                line-height: 14px; padding: 5px; 
+	                overflow: auto; width: 100%">
+	       <code style="color:#000000;word-wrap:normal;">
+scope_definition_rules:
+  # Matching an rst title:
+  # xxxxx
+  # ------
+  - {type: CompositeRule, sub_rules:[ #Note: when a composite rule is defined here, 
+                                      # all the scopes in the inner parts must have the same type.
+    { type: MatchLineStartRule, scope: title},
+    { type: SkipLineRule, scope: title},
+    { type: RepeatCharToEolRule, scope: title, chars: ['-', '=', '_', '~', '`']},
+  ]}
+</code>
+	 </pre>
+</ul>
+<br/>
+<br/>
+
+
+<strong>RepeatCharToEolRule</strong>:
+<ul>
+	This rule will match if all the characters in the current line until the end of the line (or file) are the same.<br/><br/>
+	<strong>scope</strong>: the scope which this rule defines.<br/>
+	<strong>chars</strong>: the characters that this rule can match.<br/>
+	
+	<br/><strong>Example:</strong>
+	 <pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; 
+	                color: #000000; background-color: #eee;
+	                font-size: 12px; border: 1px dashed #999999;
+	                line-height: 14px; padding: 5px; 
+	                overflow: auto; width: 100%">
+	       <code style="color:#000000;word-wrap:normal;">
+scope_definition_rules:
+  # Matching an rst title:
+  # xxxxx
+  # ------
+  - {type: CompositeRule, sub_rules:[ #Note: when a composite rule is defined here, 
+                                      # all the scopes in the inner parts must have the same type.
+    { type: MatchLineStartRule, scope: title},
+    { type: SkipLineRule, scope: title},
+    { type: RepeatCharToEolRule, scope: title, chars: ['-', '=', '_', '~', '`']},
+  ]}
+</code>
+	 </pre>
+</ul>
+<br/>
+<br/>
+
+
+
+                <!-- <pre><code>$ cd your_repo_root/repo_name
+                    $ git fetch origin
+                    $ git checkout gh-pages
+                    </code></pre> -->
+            </section>
+            <footer>
+                <p><small>Copyright 2013 - Brainwy Software Ltda.<br/>Hosted on GitHub Pages - Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+            </footer>
+        </div>
+        <script src="javascripts/scale.fix.js"></script>
+    </body>
+</html>

@@ -42,48 +42,21 @@
             </header>
             <section>
                 
-        <h3>LiClipse provides a new experience for Eclipse users.</h3>
-        <p>With it, users get out of the box:</p>
-        <ul>
-            <li>Improved theming support based on new Eclipse 4 improvements</li>
-            <li>A fast editor supporting many languages builtin</li>
-            <li>A simple way to add support for a new language</li>
-            <li>Usability improvements for all Eclipse editors</li>
-            <li>Bundling of many useful plugins in a single package</li>
-        </ul>
-        <h3>Theming support based on Eclipse 4 improvements</h3>
-        <p>Colors are not only kept consistent among all editors by using the eclipse-color-theme
-            plugin, but the IDE can also themed as a whole,
-            allowing for dark themes that are kind to your eyes.
-        </p>
-        <p><img src="images/theming.png"></p>
-        <h3>Languages supported</h3>
-        <p>LiClipse supports many languages out of the box:</p>
-        <p>CoffeScript, C/C++, CSS, Django Templates, HTML, JavaScript, Python, RST, SCSS, XML.</p>
-        <p>All those languages feature syntax highlighting, template completion,
-            outline, select/deselect scope, comment/uncomment, auto-indent, linked edition,
-            multi-edition, among others.
-        </p>
-        <p>As a note, some editors have <strong>improved support:</strong></p>
-        <p>The HTML editor has advanced context-based code-completion.</p>
-        <p>The HTML, XML and JavaScript editors have code-analysis and code-formatting features.</p>
-        <h3>Usability improvements for all Eclipse editors</h3>
-        <p>At this point, the major improvement is multi-edition supporting all editors
-            (such as PyDev, JDT, etc).
-        </p>
-        <p>See: <a href="multi_edition_video.html">Multi-Edition Video</a> for details</p>
-        <p>Besides the multi-edition (which can be triggered in a Ctrl+K search or with the mouse with
-            Ctrl+Alt+Mouse Click), the rectangular edit is also improved to be triggered with
-            Alt+Click (and stopped with escape).
-        </p>
-        <h3>Bundling of other useful plugins</h3>
-        <p>Eclipse has a myriad of useful plugins, but it can be difficult to always keep up-to-date with all
-            of those, besides finding them out can be time-consuming, so, LiClipse bundles the following
-            plugins in a single package: Workspace Mechanic, Eclipse Color Theme, StartExplorer, AnyEdit and PyDev
-            (note that PyDev does not follow the rule of being useful for everyone as the other plugins,
-            but LiClipse itself is based on reusing parts of the PyDev codebase).
-        </p>
-    
+<h1>Language Support</h1>
+
+On LiClipse, it's possible to add support for new languages by editing LiClipse language files.
+<br/>
+<br/>
+Language files may be found at <strong>plugins\com.brainwy.liclipse.editor\languages</strong>(any file which
+ends with a .liclipse in that folder is considered a LiClipse language file).
+<br/>
+<br/>
+You can open one of those files inside LiClipse to get proper highlighting and (for some languages) validation for the file.
+<br/>
+<br/>
+Each LiClipse file is a valid YAML file but with a custom expected structure.
+
+
                 <!-- <pre><code>$ cd your_repo_root/repo_name
                     $ git fetch origin
                     $ git checkout gh-pages
