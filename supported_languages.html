@@ -16,45 +16,166 @@
             <div style="position: fixed; top: 0px; left: 0px; width:100%; background-color:white; border-bottom: 1px solid black;">
             	<div style="width: 860px; margin: 0 auto;">
 	                <a href="index.html">Main</a>
+	                <a href="manual.html" style="padding-left:1.5em;">Manual</a>
             	</div>
             </div>
         </div>
         <div class="wrapper">
             <header>
-                <h1>LiClipse</h1>
-                <p>Lightweight editors, theming and usability improvements for Eclipse</p>
-                <!-- <p class="view"><a href="https://github.com/brainwy/liclipse.page">
-                    View the Project on GitHub <small>brainwy/liclipse.page</small></a></p> -->
-                <ul>
-                    <!-- <li><a href="http://???">Get It <strong>Download</strong></a></li> -->
-                    <li><a href="https://groups.google.com/forum/#!forum/liclipse">Googlegroups <strong>Forum</strong></a></li>
-                    <li><a href="http://liclipse.blogspot.com.br/">View <strong>Blog</strong></a></li>
-                </ul>
-                Note that LiClipse is still only available for Beta testers that got related perks on its
-                <a href="http://www.indiegogo.com/projects/pydev-and-liclipse-for-a-fast-sexy-and-dark-eclipse">
-                Indiegogo campaign</a>
-                but it should be available for everyone shortly.
-                <!-- <ul>
-                    <li class="lifull"><a href="http://???">Help to make it better<strong>Buy</strong></a></li>
-                    </ul>
-                    When you buy LiClipse, not only are you helping it improve more as well your overall Eclipse experience, but
-                    it's also an official supporter of PyDev, so, a part of its earnings also go into making PyDev better. -->
+                
+<p><a href="change_color_theme.html">Changing colors</a></p>
+<p><a href="supported_languages.html">Language Support</a></p>
+<p><a href="scope_definition.html">&nbsp;&nbsp;&nbsp;&nbsp;Language Scopes</a></p>
+<p><a href="ctags.html">&nbsp;&nbsp;&nbsp;&nbsp;Ctags</a></p>
+<p><a href="indent.html">&nbsp;&nbsp;&nbsp;&nbsp;Specifying indentation</a></p>
+<p><a href="templates.html">&nbsp;&nbsp;&nbsp;&nbsp;Templates</a></p>
+
             </header>
             <section>
                 
 <h1>Language Support</h1>
 
-On LiClipse, it's possible to add support for new languages by editing LiClipse language files.
-<br/>
-<br/>
-Language files may be found at <strong>plugins\com.brainwy.liclipse.editor\languages</strong>(any file which
-ends with a .liclipse in that folder is considered a LiClipse language file).
-<br/>
-<br/>
-You can open one of those files inside LiClipse to get proper highlighting and (for some languages) validation for the file.
-<br/>
-<br/>
-Each LiClipse file is a valid YAML file but with a custom expected structure.
+<p>On LiClipse, it's possible to add support for new languages by editing LiClipse language files.</p>
+
+<p>Language files may be found at <strong>plugins\com.brainwy.liclipse.editor\languages</strong> (any file which
+ends with a .liclipse in that folder is considered a LiClipse language file).</p>
+
+<p>You can open one of those files inside LiClipse to get proper highlighting and validation for the file.</p>
+
+<p>Each LiClipse file is a valid YAML file but with a custom expected structure.</p>
+
+<p>Usually, the first thing to work on in a language is <strong>defining its basic partitioning</strong>, which in practice means defining
+rules which will create scopes for each part of the document being edited. Everything that doesn't match a partition is considered to be
+in the 'default' scope.</p>
+
+<p><strong>Some examples</strong>:</p>
+
+<p>In <strong>Python</strong>, we create separate partitions for comments single line strings and multi-line strings (note that each rule must create a separete scope: things may work improperly if the same scope is used in 2 different rules).</p>
+
+<p>In <strong>XML</strong> we create partitions to separate comments, CDATA partitions and tags.</p>
+
+<p>In <strong>Javascript</strong> we create partitions to separate comments, multi-line comments and strings.</p>
+
+<p>That partitioning is defined in the <strong>scope_definition_rules</strong> top-level entry, which specifies a list where each entry defines a rule.
+See: <a href="scope_definition.html">Scope Definition</a> for more details on defining these rules.</p>
+
+<p>Reference on the main top-level elements of the language definition:</p>
+<ul>
+	<li><strong>scope_definition_rules</strong>: List where each entry is a Dictionary defining the rules which define the top-level scopes of the document.</li>
+	<li><strong>scope_to_color_name</strong>: Dictionary which maps a scope to the name of the color in the theme to be used for that scope.<br/>
+		Theme colors available are:
+		<ul>
+			<li>foreground</li>
+			<li>background</li>
+			<li>selectionForeground</li>
+			<li>selectionBackground</li>
+			<li>currentLine</li>
+			<li>lineNumber</li>
+			<li>searchResultIndication</li>
+			<li>filteredSearchResultIndication</li>
+			<li>occurrenceIndication</li>
+			<li>writeOccurrenceIndication</li>
+			<li>deletionIndication</li>
+			<li>findScope</li>
+			<li>singleLineComment</li>
+			<li>multiLineComment</li>
+			<li>commentTaskTag</li>
+			<li>sourceHoverBackground</li>
+			<li>number</li>
+			<li>string</li>
+			<li>bracket</li>
+			<li>operator</li>
+			<li>keyword</li>
+			<li>class</li>
+			<li>interface</li>
+			<li>enum</li>
+			<li>method</li>
+			<li>methodDeclaration</li>
+			<li>annotation</li>
+			<li>localVariable</li>
+			<li>localVariableDeclaration</li>
+			<li>inheritedMethod</li>
+			<li>abstractMethod</li>
+			<li>staticMethod</li>
+			<li>javadoc</li>
+			<li>javadocTag</li>
+			<li>javadocKeyword</li>
+			<li>javadocLink</li>
+			<li>field</li>
+			<li>staticField</li>
+			<li>staticFinalField</li>
+			<li>parameterVariable</li>
+			<li>typeArgument</li>
+			<li>typeParameter</li>
+			<li>deprecatedMember</li>
+			<li>debugCurrentInstructionPointer</li>
+			<li>debugSecondaryInstructionPointer</li>
+			<li>constant</li>
+
+			<li>stderr</li>
+			<li>stdin</li>
+			<li>stdout</li>
+			<li>hyperlink</li>
+			<li>activeHyperlink</li>
+			<li>matchingBracket</li>
+			<li>searchViewMatchHighlight</li>
+		</ul>
+	</li>
+	<li><strong>scope</strong>: Dictionary where each key should be the name of the scope being customized. The values are the name of a color mapping to a list with the names
+	that should be colored with that color or there can be a special entry named <strong>sub_rules</strong> to create sub-partitions which should be colored differently within
+	that partition (and may be used for other things such as specifying the entries for the outline).</li>
+
+	<li><strong>file_extensions</strong>: List with the file-extensions that should be opened with this language.</li>
+
+	<li><strong>filename</strong>: List of filenames which should be opened with this language.</li>
+
+	<li><strong>name</strong>: The name of this language.</li>
+
+	<li><strong>outline</strong>: List of Dictionaries which define how the outline is computed for this language.<br/>
+		Example showing how to add a sub-partition 'method' in the scope 'default' appear in the outline:
+		<ul>
+			- {type: Scope, scope: [default, method], define: method}
+		</ul>
+		Example showing how to match a regex in a partition to show in the outline:
+		<ul>
+			- {type: Regexp, scope: [singleLineComment], regexp: '#---.*', define: comment, group: 0}
+		</ul>
+		If using CTags, it's possible to make all the entries from ctags appear in the outline with:
+		<ul>
+			- {type: Ctags}
+		</ul>
+	</li>
+
+	<li><strong>indent</strong>: Defines how indent-scopes are created (spaces, braces or defined scopes), if we should change spaces for tabs in the language and the tab width.
+	Also helps in specifying leveling for the outline (the outline will define the entries, but the indent will define if it defines a new nesting scope).
+	See: <a href="indent.html">Indent</a> for more details.</li>
+
+	<li><strong>comment</strong>: Defines how comments are created/removed in the language (Ctrl+/).<br/>
+		Example specifying single-line comments:
+		<ul>
+			comment: {type: singleLine, sequence: '//'}
+		</ul>
+		Example showing how to deal with multi-line comments:
+		<ul>
+			comment: {type: multiLine, start: '/*', end: '*/', scope: multiLineComment}
+		</ul>
+	</li>
+
+	<li><strong>separators</strong>: Defines which characters should be considered a separator in the language. Default: <strong>./\\()\"'-:,.;&lt;&gt;~!@#$%^&amp;*|+=[]{}`~?</strong></li>
+	<li><strong>auto_edit</strong>: Defines actions which are taken when the user enters some text.
+		Example:
+		<ul>
+		- {auto_close_scopes: [singleQuotedString, doubleQuotedString], scope: default} #To work, the scopes must be: SingleLineRule(sequence used for start/end)<br/>
+		- {auto_close_parens: ['(', '[', '{'], scope: default} #Will close the parens if it's not properly balanced<br/>
+		- {auto_skip_parens: [')', ']', '}'], scope: default} #Will skip the close parens if it's properly balanced<br/>
+		</ul>
+	</li>
+	<li><strong>templates</strong>: Defines code-completion entries based on templates. See <a href="templates.html">Templates</a> for more details</li>
+	<li><strong>template_variables</strong>: It's possible to create variables which present a list of choices for the user as a variable in the template. See <a href="templates.html">Templates</a> for more details</li>
+	<li><strong>inherit</strong>: Signal that the language definition should start from the contents of another language. New top-level contents will override the values from the specified entries.</li>
+	<li><strong>patch</strong>: Only available when inherit is defined. Instead of totally overriding entries, entries specified will be appended to the entries from the inherited language.</li>
+	<li><strong>case</strong>: sensitive|insensitive (specifies if the language is case-insensitive or not).</li>
+</ul>
 
 
                 <!-- <pre><code>$ cd your_repo_root/repo_name

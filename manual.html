@@ -33,46 +33,7 @@
             </header>
             <section>
                 
-<h1>CTAGS</h1>
-It's possible to use CTAGS (<a href="http://ctags.sourceforge.net/">http://ctags.sourceforge.net/</a>) to 
-provide the outline and navigation (Ctrl+Shift+Up / Ctrl+Shift+Down). 
-<br/>
-<br/>
-
-A notable editor that uses it is the C/C++ editor, but it should be usable for any language which is supported by CTAGS 
-(although it's only recommended to use it if providing rules to parse the language is too difficult).
-<br/>
-<br/>
-
-To use CTAGS as the parser for the outline, the language should define:
-<br/>
-<br/>
-<strong>
-outline:<br/>
-  - {type: Ctags}<br/>
-</strong>
-<br/>
-And the indent type is used to complement the parent-child relations (as we only extract the text regions
-from CTAGS, so, the actual indentation is based on braces, spacing, etc.).
-<br/><br/>
-I.e.: 
-<br/><br/>
-<strong>
-indent: {<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;type: braces, #A new scope is defined by opening/closing braces<br/> 
-&nbsp;&nbsp;&nbsp;&nbsp;scope: default, #Only braces found in the default scope are considered<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;outline_scopes: [class, method], #We only create a scope where the outline defines a class or method.<br/>
-} <br/>
-</strong>
-<br/><br/>
-A ctags.exe is distributed by default on Windows and is located at 
-<strong>com.brainwy.liclipse.editor/libs/ctags.exe</strong>. For other platforms, the ctags
-executable must be already in your PATH (if you install it later, you may have to restart your shell/Eclipse so
-that it can detect the changes in your PATH).
-<br/><br/>
-The minimum version for it is ctags-5.8.
-
-
+<h3>Choose the topic you're interested in...</h3>
 
                 <!-- <pre><code>$ cd your_repo_root/repo_name
                     $ git fetch origin
