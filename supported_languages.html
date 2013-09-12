@@ -44,9 +44,12 @@ ends with a .liclipse in that folder is considered a LiClipse language file).</p
 
 <p>Each LiClipse file is a valid YAML file but with a custom expected structure.</p>
 
-<p>Usually, the first thing to work on in a language is <strong>defining its basic partitioning</strong>, which in practice means defining
-rules which will create scopes for each part of the document being edited. Everything that doesn't match a partition is considered to be
-in the 'default' scope.</p>
+<p>Usually, the first thing to work on in a language defining some basic data, such as its name (which must be unique among the available languages), the
+file-extensions and filenames which are usually used with the given language as well as a pattern to match the language shebang (if available).</p>
+
+<p>Afterwards, the second thing is <strong>defining its basic partitioning</strong>, which in practice means defining
+rules which will create scopes for each part of the document being edited (which will enable us to provide syntax-highlighting to the language).
+Note that everything that doesn't match a partition is considered to be in the 'default' scope.</p>
 
 <p><strong>Some examples</strong>:</p>
 
@@ -59,9 +62,23 @@ in the 'default' scope.</p>
 <p>That partitioning is defined in the <strong>scope_definition_rules</strong> top-level entry, which specifies a list where each entry defines a rule.
 See: <a href="scope_definition.html">Scope Definition</a> for more details on defining these rules.</p>
 
-<p>Reference on the main top-level elements of the language definition:</p>
+
+After defining the basic scopes, which should've enabled proper syntax highlighting for a language, it can be later extended to
+offer outline, better indenting, code-completion, etc. Below is a reference on the available structures to configure the language.
+<br/>
+<br/>
+<h3>Reference on the main top-level elements of the language definition:</h3>
 <ul>
+	<li><strong>file_extensions</strong>: List with the file-extensions that should be opened with this language.</li>
+
+	<li><strong>filename</strong>: List of filenames which should be opened with this language.</li>
+
+	<li><strong>name</strong>: The name of this language.</li>
+
+	<li><strong>shebang</strong>: A String or Array of Strings with the patterns to match the first line of the document to consider it of the given language.</li>
+
 	<li><strong>scope_definition_rules</strong>: List where each entry is a Dictionary defining the rules which define the top-level scopes of the document.</li>
+
 	<li><strong>scope_to_color_name</strong>: Dictionary which maps a scope to the name of the color in the theme to be used for that scope.<br/>
 		Theme colors available are:
 		<ul>
@@ -124,12 +141,6 @@ See: <a href="scope_definition.html">Scope Definition</a> for more details on de
 	<li><strong>scope</strong>: Dictionary where each key should be the name of the scope being customized. The values are the name of a color mapping to a list with the names
 	that should be colored with that color or there can be a special entry named <strong>sub_rules</strong> to create sub-partitions which should be colored differently within
 	that partition (and may be used for other things such as specifying the entries for the outline).</li>
-
-	<li><strong>file_extensions</strong>: List with the file-extensions that should be opened with this language.</li>
-
-	<li><strong>filename</strong>: List of filenames which should be opened with this language.</li>
-
-	<li><strong>name</strong>: The name of this language.</li>
 
 	<li><strong>outline</strong>: List of Dictionaries which define how the outline is computed for this language.<br/>
 		Example showing how to add a sub-partition 'method' in the scope 'default' appear in the outline:
