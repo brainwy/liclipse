@@ -5,7 +5,7 @@ Created on Sep 3, 2013
 '''
 import os
 import shutil
-import odict
+import pyodict
 
 help_location = r'X:\liclipse\plugins\com.brainwy.liclipse.help'
 
@@ -37,19 +37,25 @@ HEADER = '''
     View the Project on GitHub <small>brainwy/liclipse.page</small></a></p> -->
 <ul>
     <!-- <li><a href="http://???">Get It <strong>Download</strong></a></li> -->
-    <li><a href="http://liclipse.blogspot.com.br/">View <strong>Blog</strong></a></li>
+    <!-- <li><a href="http://liclipse.blogspot.com.br/">View <strong>Blog</strong></a></li> -->
     <li><a href="https://groups.google.com/forum/#!forum/liclipse">Googlegroups <strong>Forum</strong></a></li>
     <li><a href="https://sw-brainwy.rhcloud.com/tracker/LiClipse/">LiClipse<strong>Tracker</strong></a></li>
 </ul>
-Note that LiClipse is still only available for Beta testers that got related perks on its
-<a href="http://www.indiegogo.com/projects/pydev-and-liclipse-for-a-fast-sexy-and-dark-eclipse">
-Indiegogo campaign</a>
-but it should be available for everyone shortly.
-<!-- <ul>
-    <li class="lifull"><a href="http://???">Help to make it better<strong>Buy</strong></a></li>
-    </ul>
-    When you buy LiClipse, not only are you helping it improve more as well your overall Eclipse experience, but
-    it's also an official supporter of PyDev, so, a part of its earnings also go into making PyDev better. -->
+<ul>
+    <li class="lifull"><a href="https://drive.google.com/folderview?id=0BwwQN8QrgsRpLVlDeHRNemw3S1E&usp=sharing">Get it<strong>Download</strong></a></li>
+</ul>
+
+<ul>
+    <li class="lifull">
+    <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=NJW4VEJQZ36GJ">Help to make better<strong>Buy Single User</strong></a>
+    </li>
+</ul>
+
+<ul>
+    <li class="lifull">
+    <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=G5APKLQNXK7DL">For Organizations<strong>Buy Multi User</strong></a>
+    </li>
+</ul>
 '''
 
 #===================================================================================================
@@ -88,7 +94,7 @@ class Info:
         self.filename = None
 
 
-FILE_TO_INFO = odict.odict([
+FILE_TO_INFO = pyodict.odict([
     ('change_color_theme.html', Info('Changing colors')),
     ('supported_languages.html', Info('Language Support')),
     ('scope_definition.html', Info('&nbsp;&nbsp;&nbsp;&nbsp;Language Scopes')),
@@ -149,6 +155,8 @@ def main():
 
     # Others
     apply_to(os.path.join(this_file_dir, 'index.html'))
+    apply_to(os.path.join(this_file_dir, 'license.html'))
+    apply_to(os.path.join(this_file_dir, 'faq.html'))
     apply_to(os.path.join(this_file_dir, 'multi_edition_video.html'))
     copytree(os.path.join(help_location, 'images'), os.path.join(page_dir, 'images'))
 
