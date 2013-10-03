@@ -12,6 +12,20 @@
         <![endif]-->
     </head>
     <body>
+
+        <!-- tracking -->
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-153541-6', 'brainwy.github.io');
+          ga('send', 'pageview');
+
+        </script>
+        <!-- end tracking -->
+
         <div>
             <div style="position: fixed; top: 0px; left: 0px; width:100%; background-color:white; border-bottom: 1px solid black;">
             	<div style="width: 860px; margin: 0 auto;">
@@ -25,7 +39,7 @@
         <div class="wrapper">
             <header>
                 
-<h1>LiClipse</h1>
+<h1>LiClipse (Beta)</h1>
 <p>Lightweight editors, theming and usability improvements for Eclipse</p>
 <!-- <p class="view"><a href="https://github.com/brainwy/liclipse.page">
     View the Project on GitHub <small>brainwy/liclipse.page</small></a></p> -->
@@ -51,6 +65,8 @@
     </li>
 </ul>
 
+LiClipse license is US$ 50.00 (only during Beta).
+
             </header>
             <section>
                 
@@ -61,6 +77,20 @@
         editors without delving into actual Java coding), usability improvements for all Eclipse editors,
         packaging of some common existing plugins and installers which are natively integrated into each platform.</p>
 
+        <h3>Why is it named LiClipse?</h3>
+
+        <p>LiClipse is a short for Lightweight Eclipse.</p>
+
+
+        <h3>Why is it in Beta?</h3>
+
+        <p>
+            Although LiClipse is already ready to be used, it's still a young product and needs more features from its
+            original conception to be considered final -- and it may still have some rough edges. So, to signal that,
+            a Beta period was created (already after an Alpha phase, which was available only to developers who got
+            perks which gave early access on the crowdfunding campaign). During the Beta, its price will be below its
+            final price.
+        </p>
 
         <h3>Is it a fork of Eclipse?</h3>
 
@@ -73,13 +103,13 @@
         which does add more weight to an existing Eclipse installation,
         so, one of its targets is  that you'll only need to install more advanced editor plugins
         if it's one of your main languages and you're really in need of its features
-        as the more commom features such as syntax highlighting, outline and even basic code-completion
+        as the more commom features such as syntax highlighting, outline, comment/uncomment and even basic code-completion
         can be provided through LiClipse adding very little weight to an Eclipse install.</p>
 
         <p>Still it's interesting to note that LiClipse does intend to offer advanced support for
         some languages. As an example, its HTML editor already offers support such as
         code-analysis, context-aware code-completion and embedded languages in script tags
-        (i.e.: Javascript and CSS inside HTML).</p>
+        (i.e.: Javascript and CSS inside HTML), aiming to become one of the best in its class.</p>
 
 
         <h3>What about the crowdfunding?</h3>
@@ -89,6 +119,11 @@
             <a href="http://www.indiegogo.com/projects/pydev-and-liclipse-for-a-fast-sexy-and-dark-eclipse">Indiegogo campaign page</a>.
 
         </p>
+
+
+
+
+
     
                 <!-- <pre><code>$ cd your_repo_root/repo_name
                     $ git fetch origin
@@ -100,5 +135,6 @@
             </footer>
         </div>
         <script src="javascripts/scale.fix.js"></script>
+
     </body>
 </html>

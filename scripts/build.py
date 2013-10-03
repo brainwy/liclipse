@@ -31,7 +31,7 @@ page_dir = os.path.dirname(this_file_dir)
 
 
 HEADER = '''
-<h1>LiClipse</h1>
+<h1>LiClipse (Beta)</h1>
 <p>Lightweight editors, theming and usability improvements for Eclipse</p>
 <!-- <p class="view"><a href="https://github.com/brainwy/liclipse.page">
     View the Project on GitHub <small>brainwy/liclipse.page</small></a></p> -->
@@ -56,6 +56,8 @@ HEADER = '''
     <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=G5APKLQNXK7DL">For Organizations<strong>Buy Multi User</strong></a>
     </li>
 </ul>
+
+LiClipse license is US$ 50.00 (only during Beta).
 '''
 
 #===================================================================================================
