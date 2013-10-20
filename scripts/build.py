@@ -104,6 +104,7 @@ FILE_TO_INFO = pyodict.odict([
     ('ctags.html', Info('&nbsp;&nbsp;&nbsp;&nbsp;Ctags')),
     ('indent.html', Info('&nbsp;&nbsp;&nbsp;&nbsp;Specifying indentation')),
     ('templates.html', Info('&nbsp;&nbsp;&nbsp;&nbsp;Templates')),
+    ('spell_checking.html', Info('&nbsp;&nbsp;&nbsp;&nbsp;Spell Checking')),
 ])
 
 

@@ -51,66 +51,35 @@
             </header>
             <section>
                 
-    
-    The indentation defines how scopes are created for the specified language.
-    <br/> 
-    <br/> 
-	If the language does not specify anything, everything is considered 'flat' in the language.
-    <br/>
-    <br/>
-    
-
-	 
-	 
-	<strong>Example when scopes are created based on spaces (i.e.: python, coffescript):</strong>
-	 <pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; 
-	                color: #000000; background-color: #eee;
-	                font-size: 12px; border: 1px dashed #999999;
-	                line-height: 14px; padding: 5px; 
-	                overflow: auto; width: 100%">
-	       <code style="color:#000000;word-wrap:normal;">
-indent: {
-    type: spaces, #Spaces are used for indenting in Coffeescript 
-    outline_scopes: [class, method], #Scopes are created where the outline defines a class or method.
-} </code>
-	 </pre>
-	 
-	 
-	<strong>Example when scopes are created based on braces (i.e. javascript, c++):</strong>
-	 <pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; 
-	                color: #000000; background-color: #eee;
-	                font-size: 12px; border: 1px dashed #999999;
-	                line-height: 14px; padding: 5px; 
-	                overflow: auto; width: 100%">
-	       <code style="color:#000000;word-wrap:normal;">
-indent: {
-    type: braces, #Braces are used for indenting in Javascript 
-    scope: default, #Only braces found in the default scope are considered
-    outline_scopes: [method], #Scopes are created where the outline defines a method.
-} </code>
-	 </pre>
-	 
-	 <br/>
-
-
-	<strong>Example when scopes are created based on language scopes (i.e.: xml, html):</strong>
-	 <pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; 
-	                color: #000000; background-color: #eee;
-	                font-size: 12px; border: 1px dashed #999999;
-	                line-height: 14px; padding: 5px; 
-	                overflow: auto; width: 100%">
-	       <code style="color:#000000;word-wrap:normal;">
-indent: {
-    type: scopes, #scopes define increasing or decreasing a level
-    scope: tag, #Only 'see' tag scopes when parsing.
-    scope_start: [tag.open_tag], #on open tag raise the indent level
-    scope_end: [tag.close_tag, tag.open_tag_close], #on close tag lower the indent level
-    outline_scopes: [class], #Scopes are created where the outline defines a class
-}</code>
-	 </pre>
-	 
-	 <br/>
-
+        Spell checking can be enabled to specifid partitions of the document.
+        <br>
+        <br>
+        It should be automatically specified for a language whenever a scope maps to the string color (in the
+        top-level entry scope_to_color_name).
+        <br>
+        <br>
+        In the example below, both doubleQuotedString and singleQuotedString would be automatically spell checked.
+        <pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; color: #000000; background-color: #eee; font-size: 12px; border: 1px dashed #999999; line-height: 14px; padding: 5px; overflow: auto; width: 100%">
+	  <code style="color:#000000;word-wrap:normal;">
+scope_to_color_name: {
+  doubleQuotedString: string,
+  singleQuotedString: string,
+  builtins: annotation,
+}
+</code></pre>
+        <br>
+        It's however possible to change the partitions used to do spell checking by creating a <strong>spell_check</strong> top-level entry
+        (which should be a map).<br><br>
+        Currently the only entry that this map accepts is a <strong>scope</strong> entry which maps to a list of strings.
+        <br><br>
+        The example below shows an overridden spell_check where we only want spell checking in the <strong>annotations</strong> and <strong>javadoc</strong> partitions.
+        <pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; color: #000000; background-color: #eee; font-size: 12px; border: 1px dashed #999999; line-height: 14px; padding: 5px; overflow: auto; width: 100%">
+          <code style="color:#000000;word-wrap:normal;">
+spell_check: {
+  scope: [annotations, javadoc]
+}
+          </code></pre>
+        To disable spell checking, set an empty list in the <strong>scope</strong> entry.
     
                 <!-- <pre><code>$ cd your_repo_root/repo_name
                     $ git fetch origin
