@@ -42,7 +42,7 @@ HEADER = '''
     <li><a href="https://sw-brainwy.rhcloud.com/tracker/LiClipse/">LiClipse<strong>Tracker</strong></a></li>
 </ul>
 <ul class="top2">
-    <li class="lifull"><a href="https://drive.google.com/folderview?id=0BwwQN8QrgsRpLVlDeHRNemw3S1E&usp=sharing">Get it<strong>Download</strong></a></li>
+    <li class="lifull"><a href="download.html">Get it<strong>Download</strong></a></li>
 </ul>
 
 <ul class="top3">
@@ -160,6 +160,7 @@ def main():
 
     # Others
     apply_to(os.path.join(this_file_dir, 'index.html'))
+    apply_to(os.path.join(this_file_dir, 'download.html'))
     apply_to(os.path.join(this_file_dir, 'license.html'))
     apply_to(os.path.join(this_file_dir, 'faq.html'))
     apply_to(os.path.join(this_file_dir, 'multi_edition_video.html'))

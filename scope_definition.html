@@ -140,6 +140,31 @@ The rules available are:
 <br/>
 <br/>
 
+<strong>CompositeRule</strong>:<br/> 
+
+<ul>
+	A rule which is only matched if all its internal rules also match. When used in the context of a coloring, it'll return a token composed of multiple scopes.<br/><br/>
+	<strong>sub_rules</strong>: A list with the rules that compose this rule.<br/>
+	<br/>
+	<strong>Example:</strong>
+	 <pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; 
+	                color: #000000; background-color: #eee;
+	                font-size: 12px; border: 1px dashed #999999;
+	                line-height: 14px; padding: 5px; 
+	                overflow: auto; width: 100%">
+	       <code style="color:#000000;word-wrap:normal;">
+  #In this example, if we have a word and a colon afterwards, the word will use the class color and the sequence the operator color.
+  default:
+    sub_rules: [
+      {type: CompositeRule, sub_rules: [
+        { type: AnyWordRule, scope: class},
+        { type: SequenceRule, scope: operator, sequence: ':'}]
+      },
+    ]}</code>
+	 </pre>
+</ul>
+<br/>
+
 <strong>MultiLineRule</strong>:<br/> 
 
 <ul>
@@ -169,6 +194,36 @@ scope_definition_rules:
 <ul>
 	Same thing as a MultiLineRule, usually used in a CompositeRule to specify that some
 	multi line pattern may be optionally matched.
+</ul>
+<br/>
+
+<strong>MultiLineRuleWithSkip</strong>:<br/> 
+
+<ul>
+	A rule which may span multiple lines after we find the start sequence (and which ends at the end sequence) with
+	optional rules which may be used to skip sections while doing the match.<br/><br/>
+	<strong>start</strong>: The start sequence for the rule<br/>
+	<strong>end</strong>: The end sequence for the rule <br/>
+	<strong>scope</strong>: The scope which this rule defines<br/>
+	<strong>escapeCharacter</strong>: a Character used to escape the next char in the rule<br/>
+	<strong>skip_rules</strong>: a list of rules which when matched may skip a section of the document while matching the multi line rule.<br/>
+	<br/>
+	<strong>Example:</strong>
+	 <pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; 
+	                color: #000000; background-color: #eee;
+	                font-size: 12px; border: 1px dashed #999999;
+	                line-height: 14px; padding: 5px; 
+	                overflow: auto; width: 100%">
+	       <code style="color:#000000;word-wrap:normal;">
+	#Matching '&lt;' all the way through '&gt;' and skipping strings which may have &lt; or &gt; inside it.
+	{type: MultiLineRuleWithSkip, scope: tag, start: '&lt;', end: '&gt;', escapeCharacter: '\0',
+      skip_rules:[
+        #Needed because if we find the end sequence within a string, we want to skip it.
+        {type: MultiLineRule, scope: unused0, start: '"', end: '"', escapeCharacter: '\0'},
+        {type: MultiLineRule, scope: unused1, start: "'", end: "'",  escapeCharacter: '\0'},
+      ]
+    }</code>
+	 </pre>
 </ul>
 <br/>
 
@@ -335,7 +390,7 @@ scope_definition_rules:
 
 <strong>OneOrMoreSpacesRule</strong>:
 <ul>
-	Usually used in a CompositeRule match one or more whitespaces. A whitespace is matched if Character.isWhitespace(char) returns true.<br/><br/>
+	Usually used in a CompositeRule match one or more whitespaces. A whitespace is matched if Character.isWhitespace(char) returns true and it's not a newline.<br/><br/>
 	<strong>scope</strong>: the scope which this rule defines.<br/>
 </ul>
 <br/>
@@ -344,7 +399,7 @@ scope_definition_rules:
 
 <strong>ZeroOrMoreSpacesRule</strong>:
 <ul>
-	Usually used in a CompositeRule match zero or more whitespaces. A whitespace is matched if Character.isWhitespace(char) returns true.<br/><br/>
+	Usually used in a CompositeRule match zero or more whitespaces. A whitespace is matched if Character.isWhitespace(char) returns true and it's not a newline.<br/><br/>
 	<strong>scope</strong>: the scope which this rule defines.<br/>
 </ul>
 <br/>
@@ -393,6 +448,30 @@ scope_definition_rules:
 <br/>
 <br/>
 
+<strong>SwitchLanguageRule</strong>:
+<ul>
+	Same as a multi-line rule, but the contents inside the rule will be partitioned/scanned as being another language 
+	(actions which are language dependent should obey this properly later on).<br/>
+	<br/>
+	<strong>scope</strong>: the scope which this rule defines.<br/>
+	<strong>start</strong>: the sequence which starts matching this rule.<br/>
+	<strong>end</strong>: the sequence which ends matching this rule.<br/>
+	<strong>language</strong>: the language to be considered inside the block.<br/>
+	<br/>
+	<strong>Example:</strong>
+	 <pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; 
+	                color: #000000; background-color: #eee;
+	                font-size: 12px; border: 1px dashed #999999;
+	                line-height: 14px; padding: 5px; 
+	                overflow: auto; width: 100%">
+	       <code style="color:#000000;word-wrap:normal;">
+{type: SwitchLanguageRule, scope: python_block, start: '&lt;%', end: '%&gt;', language: python}
+</code>
+	 </pre>
+</ul>
+<br/>
+<br/>
+
 <strong>IndentedBlockRule</strong>:
 <ul>
 	Rule which will match any indented block after some prefix is found.<br/><br/>
@@ -424,7 +503,7 @@ scope_definition_rules:
 
 <strong>MatchLineStartRule</strong>:
 <ul>
-	This rule should only be used inside a CompositeRule. Matches the start of a line (column 0). It's lenght is always 0.<br/><br/>
+	This rule should only be used inside a CompositeRule. Matches the start of a line (column 0). It's length is always 0.<br/><br/>
 	<strong>scope</strong>: the scope which this rule defines.<br/>
 	
 	<br/><strong>Example:</strong>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="chrome=1">
+        <title>LiClipse by brainwy</title>
+        <link rel="stylesheet" href="stylesheets/styles.css">
+        <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <!--[if lt IE 9]>
+        <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+        LiClipse downloads may be found at: <a href="https://drive.google.com/folderview?id=0BwwQN8QrgsRpLVlDeHRNemw3S1E&amp;usp=sharing">Google Drive</a>
+        <br/>
+        <br/>
+        It can be downloaded as an update site to be installed using an existing Eclipse installation or as a native installer, which provides a pre-configured
+        standalone for Windows (32 bits or 64 bits), Mac OS (64 bits) or Linux (64 bits).
+
+        <br/>
+        <br/>
+        It's interesting to note that other plugins (such as JDT, CDT, etc.)
+        may be installed regularly in LiClipse using the provided update site for such plugins.
+        <br/>
+        <br/>
+
+        Note that for Linux (32 bits) or Mac OS (32 bits), the install must be done using the provided update site using an existing Eclipse installation.
+        <br/>
+        <br/>
+
+        <strong>Install Instructions</strong>
+        <ul>
+            <li><a href="#windows">Native Windows Install</a></li>
+            <li><a href="#linux">Native Mac OS Install</a></li>
+            <li><a href="#linux">Native Linux Install</a></li>
+            <li><a href="#update_site">Update Site Install</a></li>
+            <li><a href="#updating_native">Updating Native Install</a></li>
+        </ul>
+
+        <br/>
+
+        <hr/><h2 id="windows">Native Windows Install</h2>
+
+        Download the .exe file and run it locally, following the installer instructions.
+        <br/>
+        <br/>
+        Note: 64 bits installers, end with x86_64 and 32 bit installers end with x86.
+        <br/>
+        <br/>
+
+
+        <br/><hr/><h2 id="macos">Native Mac OS Install</h2>
+
+        Download the .dmg file, mount it as a disk and copy it (drag it) to the Applications dir.
+        <br/>
+        <br/>
+
+        <strong>Important:</strong>
+        <br/>
+        <br/>
+
+        On latest Mac OS X versions, after extracting the DMG, when executing LiClipse.app, you may get an error such as:
+        <br/>
+        <br/>
+
+        "LiCLipse.app" is damaged and can't be opened. You should move it to the Trash.
+        <br/>
+        <br/>
+
+        This happens because LiClipse isn't currently signed or distributed through the Mac App Store.
+        <br/>
+        <br/>
+
+        To overcome this, right-click the file, choose 'open' and confirm -- instead of double-clicking it (note that
+        this must be done only once, subsequent attempts to open with double-click should work properly).
+        <br/>
+        <br/>
+
+        Alternatively, it's possible to go to <strong>System Preferences > Security & Privacy</strong> and change "<strong>Allow Applications Downloaded
+        From</strong>" to "<strong>Anywhere</strong>". You have to click the lock on the bottom to make changes. Once you start up LiClipse.app, you can
+        change it back to "Mac App Store and identified developers".
+        <br/>
+        <br/>
+
+        See: <a href="http://support.apple.com/kb/ht3662">http://support.apple.com/kb/ht3662</a> for details.
+        <br/>
+        <br/>
+
+
+        <br/><hr/><h2 id="linux">Native Linux Install</h2>
+
+        Download the .tar.gz where you want to install it, unpack it at the chosen dir (where you have permissions) with:
+        <br/>
+        <br/>
+
+
+        <strong>tar xfz file.tar.gz</strong>
+        <br/>
+        <br/>
+
+        Then, create a link to start it using 'liclipse' from anywhere with:
+        <br/>
+        <br/>
+
+        <strong>sudo ln -s `pwd`/liclipse/LiClipse /usr/bin/liclipse</strong>
+        <br/>
+        <br/>
+
+        (or alternatively, just execute liclipse/LiClipse)
+        <br/>
+        <br/>
+
+
+        <br/><hr/><h2 id="update_site">Update Site Install</h2>
+
+        To use the update site, download the <strong>UPDATE SITE.zip</strong> from
+        <a href="https://drive.google.com/folderview?id=0BwwQN8QrgsRpLVlDeHRNemw3S1E&amp;usp=sharing">Google Drive</a>,
+        extract it in a folder, then,
+        on Eclipse (or a previously downloaded LiClipse) go to:
+        <br/>
+        <br/>
+
+        <strong>Help > Install New Software</strong>
+        <br/>
+        <br/>
+
+        and on the dialog add the folder where you extracted the update site contents,
+        select all the items and follow the wizard (note: you may have to uncheck "group
+        items by category" in order to see the items to be installed)..
+        <br/>
+        <br/>
+
+
+        <h3>Requirement: Eclipse 4.3</h3>
+
+        Note that to be installed, LiClipse requires Eclipse 4.3 (Kepler) onwards.
+        <br/>
+        <br/>
+
+
+        <h3>Requirement: Java 7</h3>
+
+        The installed Eclipse MUST be running with a Java 7 VM, otherwise LiClipse may not show as being installed or you'll have errors such as:<br/>
+        <br/>
+        java.lang.UnsupportedClassVersionError: SomeClass :<br/>
+         Unsupported major.minor version 51.0<br/>
+            at java.lang.ClassLoader.defineClass1(Native Method)<br/>
+            at java.lang.ClassLoader.defineClassCond(Unknown Source)<br/>
+        <br/>
+        -- Note that the native LiClipse installers ship by default with a VM, so, the installed java version shouldn't be a concern.<br/>
+        <br/>
+        <br/>
+
+
+
+        <h3>Requirement: uninstall conflicting bundles</h3>
+
+        Note that if you have some of the bundled plugins in Eclipse (i.e.: PyDev, AnyEdit, ColorTheme,
+        StartExplorer, WorkspaceMechanic) you may have to uninstall it before installing LiClipse.
+        <br/>
+        <br/>
+
+
+        <br/><hr/><h2 id="updating_native">Updating Native Install</h2>
+
+        To update, 2 options are available:
+        <br/>
+        <br/>
+
+        1. Download the native installer again and install as a fresh install (but in this case you should install it
+        on a different directory or first uninstall the existing version).
+        <br/>
+        <br/>
+
+        2. Update the current installation with an update site that's more recent following the update site instructions.
+        <br/>
+        <br/>
+
+
+
+
+
+
+
+
+
+    </body>
+</html>
