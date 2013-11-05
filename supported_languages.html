@@ -191,13 +191,39 @@ offer outline, better indenting, code-completion, etc. Below is a reference on t
 	</li>
 
 	<li><strong>separators</strong>: Defines which characters should be considered a separator in the language. Default: <strong>./\\()\"'-:,.;&lt;&gt;~!@#$%^&amp;*|+=[]{}`~?</strong></li>
+	<li><strong>code_completion</strong>: Dictionary which currently only supports one setting: <strong>use_only_templates</strong> as true or false (default is false, which also shows completions based on keywords used in syntax highlighting).</li>
 	<li><strong>auto_edit</strong>: Defines actions which are taken when the user enters some text.
-		Example:
-		<ul>
-		- {auto_close_scopes: [singleQuotedString, doubleQuotedString], scope: default} #To work, the scopes must be: SingleLineRule(sequence used for start/end)<br/>
-		- {auto_close_parens: ['(', '[', '{'], scope: default} #Will close the parens if it's not properly balanced<br/>
-		- {auto_skip_parens: [')', ']', '}'], scope: default} #Will skip the close parens if it's properly balanced<br/>
-		</ul>
+		<br/>Example:<br/><pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; color: #000000; background-color: #eee; font-size: 12px; border: 1px dashed #999999; line-height: 14px; padding: 5px; overflow: auto; width: 100%"><code style="color:#000000;word-wrap:normal;">auto_edit:
+  # In a new line, indent after ':'
+  - {after: ':', trigger: '\n', action: indent, scope: default} 
+  
+  # Skip ':' if already there
+  - {before: ':', trigger: ':', action: skip, scope: default}
+  
+  # To work, the scopes must be: SingleLineRule(sequence used for start/end) or MultiLineRule.
+  - {auto_close_scopes: [doubleQuotedString, singleQuotedString], scope: default} 
+  
+  # Will close the parens if it's not properly balanced
+  - {auto_close_parens: ['(', '[', '{'], scope: default} 
+  
+  # Will skip the close parens if it's properly balanced
+  - {auto_skip_parens: [')', ']', '}'], scope: default} 
+</code></pre>
+	</li>
+	<li><strong>rule_aliases</strong>: May be used to create rules which may be later referenced only by the name.
+		<br/>Example:<br/><pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; color: #000000; background-color: #eee; font-size: 12px; border: 1px dashed #999999; line-height: 14px; padding: 5px; overflow: auto; width: 100%"><code style="color:#000000;word-wrap:normal;">rule_aliases: {
+  'HashCommentRule': {type: EndOfLineRule, scope: singleLineComment, start: '#'},
+  'PythonCommentRule': 'HashCommentRule',
+}
+
+scope_definition_rules:
+  # Use a rule alias
+  - 'PythonCommentRule'
+  
+  # Declare a regular rule  
+  - { type: NumberRule, scope: number}
+</code></pre>
+
 	</li>
 	<li><strong>templates</strong>: Defines code-completion entries based on templates. See <a href="templates.html">Templates</a> for more details</li>
 	<li><strong>template_variables</strong>: It's possible to create variables which present a list of choices for the user as a variable in the template. See <a href="templates.html">Templates</a> for more details</li>
