@@ -253,6 +253,7 @@ scope_definition_rules:
 	the remaining ones match Character.isJavaIdentifierPart).
 	Usually used in a CompositeRule.
 	<br/>
+	If mustStartUppercase is True, it'll only start matching if the first char is uppercase.
 	<br/><strong>Example:</strong>
 	 <pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; 
 	                color: #000000; background-color: #eee;
@@ -261,7 +262,7 @@ scope_definition_rules:
 	                overflow: auto; width: 100%">
 	       <code style="color:#000000;word-wrap:normal;">
 # Matching any word after detecting we're in a decorator context in Python.
-{ type: AnyWordRule, scope: decorator }</code>
+{ type: AnyWordRule, scope: decorator, mustStartUppercase: False }</code>
 	 </pre>
 </ul>
 <br/>
