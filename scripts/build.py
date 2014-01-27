@@ -108,13 +108,15 @@ FILE_TO_INFO = pyodict.odict([
 ])
 
 
-for f in os.listdir(help_location):
-    if not f.endswith('.html'):
-        continue
-    if f not in FILE_TO_INFO:
-        raise ValueError('Not expecting: %s' % (f,))
-    FILE_TO_INFO[f].filename = os.path.join(help_location, f)
-
+if os.path.exists(help_location):
+    for f in os.listdir(help_location):
+        if not f.endswith('.html'):
+            continue
+        if f not in FILE_TO_INFO:
+            raise ValueError('Not expecting: %s' % (f,))
+        FILE_TO_INFO[f].filename = os.path.join(help_location, f)
+else:
+    print('Dir: %s does not exist (unable to generate related pages)' % help_location)
 
 #===================================================================================================
 # create_manual_header
@@ -132,7 +134,8 @@ def create_manual_header():
 <p><small>Copyright 2013 - Brainwy Software Ltda.<br/>Hosted on GitHub Pages - Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
 ''' % {'li': '\n'.join(lis)}
 
-MANUAL_HEADER = create_manual_header()
+if os.path.exists(help_location):
+    MANUAL_HEADER = create_manual_header()
 
 
 
@@ -154,9 +157,10 @@ def create_manual_page():
 #===================================================================================================
 def main():
     # Manual
-    create_manual_page()
-    for info in FILE_TO_INFO.itervalues():
-        apply_to(info.filename, header=MANUAL_HEADER)
+    if os.path.exists(help_location):
+        create_manual_page()
+        for info in FILE_TO_INFO.itervalues():
+            apply_to(info.filename, header=MANUAL_HEADER)
 
     # Others
     apply_to(os.path.join(this_file_dir, 'index.html'))
@@ -164,7 +168,9 @@ def main():
     apply_to(os.path.join(this_file_dir, 'license.html'))
     apply_to(os.path.join(this_file_dir, 'faq.html'))
     apply_to(os.path.join(this_file_dir, 'multi_edition_video.html'))
-    copytree(os.path.join(help_location, 'images'), os.path.join(page_dir, 'images'))
+
+    if os.path.exists(help_location):
+        copytree(os.path.join(help_location, 'images'), os.path.join(page_dir, 'images'))
 
 
 if __name__ == '__main__':
