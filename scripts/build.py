@@ -99,6 +99,7 @@ class Info:
 
 FILE_TO_INFO = pyodict.odict([
     ('change_color_theme.html', Info('Changing colors')),
+    ('launch.html', Info('Running/Launching')),
     ('supported_languages.html', Info('Language Support')),
     ('scope_definition.html', Info('&nbsp;&nbsp;&nbsp;&nbsp;Language Scopes')),
     ('ctags.html', Info('&nbsp;&nbsp;&nbsp;&nbsp;Ctags')),

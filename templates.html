@@ -40,6 +40,7 @@
             <header>
                 
 <p><a href="change_color_theme.html">Changing colors</a></p>
+<p><a href="launch.html">Running/Launching</a></p>
 <p><a href="supported_languages.html">Language Support</a></p>
 <p><a href="scope_definition.html">&nbsp;&nbsp;&nbsp;&nbsp;Language Scopes</a></p>
 <p><a href="ctags.html">&nbsp;&nbsp;&nbsp;&nbsp;Ctags</a></p>
@@ -55,10 +56,43 @@
         On LiClipse, it's possible to add new templates for code completion in language files.
         <br>
         <br>
-        Language files may be found at <strong>plugins\com.brainwy.liclipse.editor\languages</strong> (any file which
+        Language files may be found at the tracked directories. <strong>Preferences > LiClipse</strong> has
+        links which show the tracked directories (any file which
         ends with a .liclipse in that folder is considered a LiClipse language file).
         <br>
         <br>
+        Also, it's possible to extend an existing language to add templates to it. For that, create a '${any.name}.extends.liclipse' file
+        in any of the tracked directories with the structure:
+        <br>
+        <br>
+        <pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; color: #000000; background-color: #eee; font-size: 12px; border: 1px dashed #999999; line-height: 14px; padding: 5px; overflow: auto; width: 100%">
+          <code style="color:#000000;word-wrap:normal;">
+extend: Python # This is the name of the language to be extended to add templates
+
+patch:
+  # Only available if 'extend' is defined:
+  # appends data to the specified items (in this case templates).
+  - templates:
+    - name: ''
+      description: "Surround with try..except"
+      pattern: |-
+        try:
+        ${indented_block}${cursor}
+        except:
+            raise
+
+    - name: ''
+      description: "Surround with try..finally"
+      pattern: |-
+        try:
+        ${indented_block}${cursor}
+        finally:
+            ${pass}
+
+          </code></pre>
+        <br>
+        <br>
+
         The following variables are available for templates:
         <br>
         <br>
@@ -68,10 +102,10 @@
                 <strong>${indented_block}</strong>: This is a block indenting the contents of each line selected.<br>
                 Useful for doing a templates with a surround-with.
                 <br><br><strong>Example:</strong>
-                <pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; 
+                <pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace;
                     color: #000000; background-color: #eee;
                     font-size: 12px; border: 1px dashed #999999;
-                    line-height: 14px; padding: 5px; 
+                    line-height: 14px; padding: 5px;
                     overflow: auto; width: 100%">
 	       <code style="color:#000000;word-wrap:normal;">
 templates: #Note: pressing ctrl+space twice will show only the templates
@@ -93,10 +127,10 @@ templates: #Note: pressing ctrl+space twice will show only the templates
             <li><strong>${dollar}</strong>: The dollar character.<br><br></li>
             <li>
                 <strong>Custom</strong>: It's also possible to create custom template variables that allow the user to choose from a list of options.<br><br>
-                <pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; 
+                <pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace;
                     color: #000000; background-color: #eee;
                     font-size: 12px; border: 1px dashed #999999;
-                    line-height: 14px; padding: 5px; 
+                    line-height: 14px; padding: 5px;
                     overflow: auto; width: 100%">
 	       <code style="color:#000000;word-wrap:normal;">
 template_variables: {
@@ -117,27 +151,27 @@ templates:
         The attributes that are available on a template are:
         <ul>
             <li><strong>name</strong>: This is the name of the pattern and the set of chars to be matched to match it in a completion.<br/><br/></li>
-            
+
             <li><strong>description</strong>: (optional) The description to be shown for the pattern.<br/><br/></li>
-            
-            <li><strong>pattern</strong>: The actual completion to be applied. Elements as "${identifier}" will be set as hotspots for the user to edit (and they 
-            can only be simple words, characters such as '/' will break it (if you need to use such a char to complete, use a template variable with a 
+
+            <li><strong>pattern</strong>: The actual completion to be applied. Elements as "${identifier}" will be set as hotspots for the user to edit (and they
+            can only be simple words, characters such as '/' will break it (if you need to use such a char to complete, use a template variable with a
             single value to be resolved).<br/><br/></li>
-            
-            <li><strong>auto_insert</strong>: (optional: true|false) default=true: If true, if the completion is the sole 
+
+            <li><strong>auto_insert</strong>: (optional: true|false) default=true: If true, if the completion is the sole
                 completion in the list, it's applied (otherwise the completion list shows up even with a single element) .
             <br/><br/></li>
-            
+
             <li><strong>icon</strong>: (optional: string): The icon to be used for the completion (one of class, method, comment, attribute, tag, action).<br/><br/></li>
-            
+
             <li><strong>scope</strong>: (optional: string): If given, the completions are only applied at the given scope.<br/><br/></li>
-            
+
             <li><strong>match_previous_sub_scope</strong>: (optional: [string, string]): If given, a previous context of a given type (the first string passed)
             will be searched and it will be matched against a value (the second string passed) and the completion will only appear if there's a match.<br/><br/></li>
-            
+
             <li><strong>match_current_sub_scope</strong>: (optional: [string, string] or [string, '*notempty*']): It's very close to match_previous_sub_scope, but
             it'll only look for matches inside the current partition
-            while match_previous_sub_scope will match the previous sub scope regardless of where it's in the file (as long as it's before the 
+            while match_previous_sub_scope will match the previous sub scope regardless of where it's in the file (as long as it's before the
             current offset).
             <br/>
             <br/>
@@ -154,8 +188,8 @@ templates:
   icon: 'attribute'
   scope: tag
   match_current_sub_scope: ['tag.class', '*notempty*']
-			  </code></pre>			
-			
+			  </code></pre>
+
 			<strong>Example 2</strong>: the template below will be shown only for the &lt;a&gt; tag.
 			<pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; color: #000000; background-color: #eee; font-size: 12px; border: 1px dashed #999999; line-height: 14px; padding: 5px; overflow: auto; width: 100%">
 			  <code style="color:#000000;word-wrap:normal;">
@@ -165,8 +199,8 @@ templates:
   scope: tag
   icon: attribute
   match_current_sub_scope: ['tag.class', 'a']
-			  </code></pre>			
-			
+			  </code></pre>
+
             <br/><br/></li>
         </ul>
     

@@ -52,47 +52,53 @@
             </header>
             <section>
                 
-<h1>CTAGS</h1>
-It's possible to use CTAGS (<a href="http://ctags.sourceforge.net/">http://ctags.sourceforge.net/</a>) to 
-provide the outline and navigation (Ctrl+Shift+Up / Ctrl+Shift+Down). 
-<br/>
-<br/>
 
-A notable editor that uses it is the C/C++ editor, but it should be usable for any language which is supported by CTAGS 
-(although it's only recommended to use it if providing rules to parse the language is too difficult).
-<br/>
-<br/>
+    It's possible to launch a file opened with the LiClipse editor (<strong>new on LiClipse 1.0.0</strong>):<br/>
+    <br/>
+    After opening an editor, <strong>F9</strong> may be used to launch it.<br/>
+    <br/>
+    The settings from the language are gotten to create a launch configuration
+    (and if the language doesn't have any
+    the launch settings set, a dialog will be opened so that the executable to
+    be used can be selected).<br/>
+    <br/>
+    When a given file is run, the errors on the console are hyperlinked based on the settings
+    set in the language.
+    <br/>
+    <br/>
+    Below is an example on how to configure a launch for a language (by editing the
+    related '.liclipse' file).
+    <br/>
+    <br/>
+    <pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; color: #000000; background-color: #eee; font-size: 12px; border: 1px dashed #999999; line-height: 14px; padding: 5px; overflow: auto; width: 100%">
+      <code style="color:#000000;word-wrap:normal;">
+launch: {
+    command: python, #Note: 'python' must be in the PATH for the launch to work
+    vm_args: '-u', #Default vm arguments to add to a launch
+    environment: { #Default environment to use in the launch
+        'PYTHONUNBUFFERED': '1'
+    },
+    hyperlink: {
+        regexp: '.*(File) \"([^\"]*)\", line (\d*).*',
+        start: 1, #i.e.: start the hyperlink on 'File' (group 1 of the hyperlink).
+        filename: 2, #i.e.: group 2 of the regexp has the filename.
+        line: 3, #i.e.: group 1 of the regexp has the line in the file.
+    }
+}
+      </code></pre>
+      Other shortcuts may also be useful to the launching workflow:
+      <br/>
+      <br/>
+      <strong>Ctrl+Shift+F9</strong>: Terminates the last launch and relaunches it.
+      <br/>
+      <br/>
+      <strong>Ctrl+Alt+F9</strong>: Terminates all launches.
+      <br/>
+      <br/>
+      <strong>Ctrl+F11</strong>: Relaunches the last launch.
 
-To use CTAGS as the parser for the outline, the language should define:
-<br/>
-<br/>
-<strong>
-outline:<br/>
-  - {type: Ctags}<br/>
-</strong>
-<br/>
-And the indent type is used to complement the parent-child relations (as we only extract the text regions
-from CTAGS, so, the actual indentation is based on braces, spacing, etc.).
-<br/><br/>
-I.e.: 
-<br/><br/>
-<strong>
-indent: {<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;type: braces, #A new scope is defined by opening/closing braces<br/> 
-&nbsp;&nbsp;&nbsp;&nbsp;scope: default, #Only braces found in the default scope are considered<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;outline_scopes: [class, method], #We only create a scope where the outline defines a class or method.<br/>
-} <br/>
-</strong>
-<br/><br/>
-A ctags.exe is distributed by default on Windows and is located at 
-<strong>com.brainwy.liclipse.editor/libs/ctags.exe</strong>. For other platforms, the ctags
-executable must be already in your PATH (if you install it later, you may have to restart your shell/Eclipse so
-that it can detect the changes in your PATH).
-<br/><br/>
-The minimum version for it is ctags-5.8.
 
-
-
+    
                 <!-- <pre><code>$ cd your_repo_root/repo_name
                     $ git fetch origin
                     $ git checkout gh-pages
