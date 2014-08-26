@@ -41,48 +41,60 @@
         <div class="wrapper">
             <header>
                 
-<p><a href="change_color_theme.html">Changing colors</a></p>
-<p><a href="launch.html">Running/Launching</a></p>
-<p><a href="supported_languages.html">Language Support</a></p>
-<p><a href="scope_definition.html">&nbsp;&nbsp;&nbsp;&nbsp;Language Scopes</a></p>
-<p><a href="ctags.html">&nbsp;&nbsp;&nbsp;&nbsp;Ctags</a></p>
-<p><a href="indent.html">&nbsp;&nbsp;&nbsp;&nbsp;Specifying indentation</a></p>
-<p><a href="templates.html">&nbsp;&nbsp;&nbsp;&nbsp;Templates</a></p>
-<p><a href="spell_checking.html">&nbsp;&nbsp;&nbsp;&nbsp;Spell Checking</a></p><br><br><br>
+<h1>LiClipse (Beta)</h1>
+<p>Lightweight editors, theming and usability improvements for Eclipse</p>
+<!-- <p class="view"><a href="https://github.com/brainwy/liclipse.page">
+    View the Project on GitHub <small>brainwy/liclipse.page</small></a></p> -->
+<ul class="top1">
+    <!-- <li><a href="http://???">Get It <strong>Download</strong></a></li> -->
+    <li><a href="https://groups.google.com/forum/#!forum/liclipse">Googlegroups <strong>Forum</strong></a></li>
+    <li><a href="http://liclipse.blogspot.com.br/">View <strong>Blog</strong></a></li>
+    <li><a href="https://sw-brainwy.rhcloud.com/tracker/LiClipse/">LiClipse<strong>Tracker</strong></a></li>
+</ul>
+<ul class="top2">
+    <li class="lifull"><a href="download.html">Get it<strong>Download</strong></a></li>
+</ul>
+
+<ul class="top3">
+    <li class="lifull">
+    <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=NJW4VEJQZ36GJ">Help to make better<strong>Buy Single User</strong></a>
+    </li>
+</ul>
+
+<ul class="top4">
+    <li class="lifull">
+    <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=G5APKLQNXK7DL">For Organizations<strong>Buy Multi User</strong></a>
+    </li>
+</ul>
+
+
+Pricing: A LiClipse license is US$ 50.00 (only during Beta).<br><br><br>
 <p><small>Copyright 2013-2014 - Brainwy Software Ltda.<br/>Hosted on GitHub Pages - Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
 
             </header>
             <section>
                 
-        Spell checking can be enabled to specifid partitions of the document.
-        <br>
-        <br>
-        It should be automatically specified for a language whenever a scope maps to the string color (in the
-        top-level entry scope_to_color_name).
-        <br>
-        <br>
-        In the example below, both doubleQuotedString and singleQuotedString would be automatically spell checked.
-        <pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; color: #000000; background-color: #eee; font-size: 12px; border: 1px dashed #999999; line-height: 14px; padding: 5px; overflow: auto; width: 100%">
-	  <code style="color:#000000;word-wrap:normal;">
-scope_to_color_name: {
-  doubleQuotedString: string,
-  singleQuotedString: string,
-  builtins: annotation,
-}
-</code></pre>
-        <br>
-        It's however possible to change the partitions used to do spell checking by creating a <strong>spell_check</strong> top-level entry
-        (which should be a map).<br><br>
-        Currently the only entry that this map accepts is a <strong>scope</strong> entry which maps to a list of strings.
-        <br><br>
-        The example below shows an overridden spell_check where we only want spell checking in the <strong>annotations</strong> and <strong>javadoc</strong> partitions.
-        <pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; color: #000000; background-color: #eee; font-size: 12px; border: 1px dashed #999999; line-height: 14px; padding: 5px; overflow: auto; width: 100%">
-          <code style="color:#000000;word-wrap:normal;">
-spell_check: {
-  scope: [annotations, javadoc]
-}
-          </code></pre>
-        To disable spell checking, set an empty list in the <strong>scope</strong> entry.
+        <h3>Languages supported</h3>
+        <p>LiClipse supports many languages out of the box:</p>
+        <ul>
+            <li>CoffeScript</li>
+            <li>C/C++</li>
+            <li>CSS</li>
+            <li>Dart <strong>(new on 0.9.0)</strong></li>
+            <li>Django Templates</li>
+            <li>HTML</li>
+            <li>Java <strong>(new on 0.9.5)</strong></li>
+            <li>JavaScript</li>
+            <li>Julia <strong>(new on 1.0.0)</strong></li>
+            <li>Kivy Language <strong>(new on 0.9.7)</strong></li>
+            <li>Mako Templates <strong>(new on 0.9.0)</strong></li>
+            <li>Python</li>
+            <li>RST (ReStructured Text)</li>
+            <li>SCSS</li>
+            <li>StringTemplate <strong>(new on 1.1.1)</strong></li>
+            <li>XML</li>
+            <li>YAML <strong>(new on 1.1.1)</strong></li>
+        </ul>
     
                 <!-- <pre><code>$ cd your_repo_root/repo_name
                     $ git fetch origin

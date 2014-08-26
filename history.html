@@ -74,60 +74,55 @@ Pricing: A LiClipse license is US$ 50.00 (only during Beta).<br><br><br>
             </header>
             <section>
                 
-        <h3>What is LiClipse?</h3>
-
-        <p>LiClipse is a set of plugins to enhance Eclipse and improve the overall Eclipse experience.
-        It includes improved IDE theming, builtin editors for many languages (and a way to easily create new
-        editors without delving into actual Java coding), usability improvements for all Eclipse editors,
-        packaging of some common existing plugins and installers which are natively integrated into each platform.</p>
-
-        <h3>Why is it named LiClipse?</h3>
-
-        <p>LiClipse is a short for Lightweight Eclipse.</p>
-
-
-        <h3>Why is it in Beta?</h3>
-
-        <p>
-            Although LiClipse is already ready to be used, it's still a young product and needs more features from its
-            original conception to be considered final -- and it may still have some rough edges. So, to signal that,
-            a Beta period was created (already after an Alpha phase, which was available only to developers who got
-            perks which gave early access on the crowdfunding campaign). During the Beta, its price will be below its
-            final price.
-        </p>
-
-        <h3>Is it a fork of Eclipse?</h3>
-
-        <p>No, LiClipse is not a fork of Eclipse (nor does it intend to be). Also, it should work well with
-        existing plugins and can be installed in an existing Eclipse installation.</p>
-
-        <p>Now, having said that, it does have some overlap when it comes down to supported languages.</p>
-
-        <p>Usually, in Eclipse, you have to install a new plugin for each language you're working with,
-        which does add more weight to an existing Eclipse installation,
-        so, one of its targets is  that you'll only need to install more advanced editor plugins
-        if it's one of your main languages and you're really in need of its features
-        as the more commom features such as syntax highlighting, outline, comment/uncomment and even basic code-completion
-        can be provided through LiClipse adding very little weight to an Eclipse install.</p>
-
-        <p>Still it's interesting to note that LiClipse does intend to offer advanced support for
-        some languages. As an example, its HTML editor already offers support such as
-        code-analysis, context-aware code-completion and embedded languages in script tags
-        (i.e.: Javascript and CSS inside HTML), aiming to become one of the best in its class.</p>
-
-
-        <h3>What about the crowdfunding?</h3>
-
-        <p>
-            The crowdfunding for LiClipse is now finished -- it can still be seen at:
-            <a href="http://www.indiegogo.com/projects/pydev-and-liclipse-for-a-fast-sexy-and-dark-eclipse">Indiegogo campaign page</a>.
-
-        </p>
-
-
-
-
-
+    <h3>Releases history</h3>
+        <h3>Release Highlights for LiClipse 1.0.0</h3>
+        <ul>
+            <li>It's possible to launch languages with support for hyperlinking. See: <a href="launch.html">Running/Launch</a> for details</li>
+            <ul>
+                <li><strong>F9</strong>: Launches using editor language</li>
+                <li><strong>Ctrl+Shift+F9</strong>: Terminates the last launch and relaunches it</li>
+                <li><strong>Ctrl+Alt+F9</strong>: Terminates all launches</li>
+                <li><strong>Ctrl+F11</strong>: Relaunches the last launch</li>
+            </ul>
+            <li>Extending a language to add templates is easier. See: <a href="templates.html">Templates</a> for details</li>
+            <li>The Julia language is now supported</li>
+            <li>If there's some text selected, completions that don't use the selection are not shown</li>
+            <li>When a completion requires a selection or block, it won't appear if no text is selected</li>
+            <li>Fixed issue on numbers syntax highlight</li>
+            <li>Added the Eclipse 4.4 Dark theme as an option</li>
+            <li>Upgraded to Eclipse 4.4.0</li>
+            <li>Upgraded to PyDev 3.6.0</li>
+        </ul>
+        <h3>Release Highlights for LiClipse 0.9.9</h3>
+        <ul>
+            <li>Upgraded to PyDev 3.5.0</li>
+        </ul>
+        <h3>Release Highlights for LiClipse 0.9.8</h3>
+        <ul>
+            <li>Upgraded to Eclipse 4.3.2</li>
+            <li>Upgraded to EGit 3.3.0</li>
+            <li>Upgraded to PyDev 3.4.1</li>
+            <li>Change default: line numbers shown</li>
+            <li>Change default: print margin shown</li>
+            <li>Change default: spaces instead of tabs</li>
+            <li>Change default: search incremental</li>
+        </ul>
+        <h3>Release Highlights for LiClipse 0.9.7</h3>
+        <ul>
+            <li>EGit is properly themed</li>
+            <li>Kivy Language is now supported</li>
+            <li>Ctrl+Tab and Ctrl+Shift+Tab are bound by default to next/previous editor</li>
+            <li>Quick Access (in main toolbar) is now properly themed</li>
+            <li>Compare editors from LiClipse provide syntax highlighting when diffing</li>
+            <li>Improved code-completion in xml editor to create a new tag from word next to cursor</li>
+            <li>Added editor icons for more editors</li>
+            <li>Adding some templates to java language editor</li>
+            <li>Mark occurrences is now provided (text based)</li>
+            <li>Shift+Alt+O may be used to toggle mark occurrences</li>
+            <li>Improved default theme a bit</li>
+            <li>The theme is reapplied when LiClipse starts to deal with changes on existing themes (may be turned off in the color theme preferences page)</li>
+            <li>It's possible to specify a color for the editor current line background and another color for other widgets (tree, table) current line background</li>
+        </ul>
     
                 <!-- <pre><code>$ cd your_repo_root/repo_name
                     $ git fetch origin

@@ -57,8 +57,9 @@ HEADER = '''
     </li>
 </ul>
 
+
 Pricing: A LiClipse license is US$ 50.00 (only during Beta).<br><br><br>
-<p><small>Copyright 2013 - Brainwy Software Ltda.<br/>Hosted on GitHub Pages - Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+<p><small>Copyright 2013-2014 - Brainwy Software Ltda.<br/>Hosted on GitHub Pages - Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
 '''
 
 #===================================================================================================
@@ -132,7 +133,7 @@ def create_manual_header():
 
     return '''
 %(li)s<br><br><br>
-<p><small>Copyright 2013 - Brainwy Software Ltda.<br/>Hosted on GitHub Pages - Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+<p><small>Copyright 2013-2014 - Brainwy Software Ltda.<br/>Hosted on GitHub Pages - Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
 ''' % {'li': '\n'.join(lis)}
 
 if os.path.exists(help_location):
@@ -165,6 +166,8 @@ def main():
 
     # Others
     apply_to(os.path.join(this_file_dir, 'index.html'))
+    apply_to(os.path.join(this_file_dir, 'languages.html'))
+    apply_to(os.path.join(this_file_dir, 'history.html'))
     apply_to(os.path.join(this_file_dir, 'download.html'))
     apply_to(os.path.join(this_file_dir, 'license.html'))
     apply_to(os.path.join(this_file_dir, 'faq.html'))

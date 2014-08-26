@@ -32,6 +32,8 @@
 	                <a href="index.html">Main</a>
 	                <a href="faq.html" style="padding-left:1.5em;">FAQ</a>
 	                <a href="manual.html" style="padding-left:1.5em;">Manual</a>
+	                <a href="languages.html" style="padding-left:1.5em;">Languages</a>
+	                <a href="history.html" style="padding-left:1.5em;">Releases</a>
 	                <a href="license.html" style="padding-left:1.5em;">License</a>
             	</div>
             </div>
@@ -47,7 +49,7 @@
 <p><a href="indent.html">&nbsp;&nbsp;&nbsp;&nbsp;Specifying indentation</a></p>
 <p><a href="templates.html">&nbsp;&nbsp;&nbsp;&nbsp;Templates</a></p>
 <p><a href="spell_checking.html">&nbsp;&nbsp;&nbsp;&nbsp;Spell Checking</a></p><br><br><br>
-<p><small>Copyright 2013 - Brainwy Software Ltda.<br/>Hosted on GitHub Pages - Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+<p><small>Copyright 2013-2014 - Brainwy Software Ltda.<br/>Hosted on GitHub Pages - Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
 
             </header>
             <section>
@@ -218,6 +220,31 @@ scope_definition_rules:
 	       <code style="color:#000000;word-wrap:normal;">
 	#Matching '&lt;' all the way through '&gt;' and skipping strings which may have &lt; or &gt; inside it.
 	{type: MultiLineRuleWithSkip, scope: tag, start: '&lt;', end: '&gt;', escapeCharacter: '\0',
+      skip_rules:[
+        #Needed because if we find the end sequence within a string, we want to skip it.
+        {type: MultiLineRule, scope: unused0, start: '"', end: '"', escapeCharacter: '\0'},
+        {type: MultiLineRule, scope: unused1, start: "'", end: "'",  escapeCharacter: '\0'},
+      ]
+    }</code>
+	 </pre>
+</ul>
+<br/>
+
+<strong>MultiLineRuleRecursive</strong>:<br/>
+
+<ul>
+	It's the same thing as the MultiLineRuleWithSkip, but if the start sequence is found again, a level is added
+	and the same number of end sequences must be found to finish the rule.<br/>
+	<br/>
+	<strong>Example:</strong>
+	 <pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace;
+	                color: #000000; background-color: #eee;
+	                font-size: 12px; border: 1px dashed #999999;
+	                line-height: 14px; padding: 5px;
+	                overflow: auto; width: 100%">
+	       <code style="color:#000000;word-wrap:normal;">
+	#Matching '&lt;' all the way through '&gt;' and skipping strings which may have &lt; or &gt; inside it.
+	{type: MultiLineRuleRecursive, scope: tag, start: '&lt;', end: '&gt;', escapeCharacter: '\0',
       skip_rules:[
         #Needed because if we find the end sequence within a string, we want to skip it.
         {type: MultiLineRule, scope: unused0, start: '"', end: '"', escapeCharacter: '\0'},
