@@ -56,52 +56,44 @@
             </header>
             <section>
                 
-
-    It's possible to launch a file opened with the LiClipse editor (<strong>new on LiClipse 1.0.0</strong>):<br/>
-    <br/>
-    After opening an editor, <strong>F9</strong> may be used to launch it.<br/>
-    <br/>
-    The settings from the language are gotten to create a launch configuration
-    (and if the language doesn't have any
-    the launch settings set, a dialog will be opened so that the executable to
-    be used can be selected).<br/>
-    <br/>
-    When a given file is run, the errors on the console are hyperlinked based on the settings
-    set in the language.
-    <br/>
-    <br/>
-    Below is an example on how to configure a launch for a language (by editing the
-    related '.liclipse' file).
-    <br/>
-    <br/>
-    <pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; color: #000000; background-color: #eee; font-size: 12px; border: 1px dashed #999999; line-height: 14px; padding: 5px; overflow: auto; width: 100%">
-      <code style="color:#000000;word-wrap:normal;">
-launch: {
-    command: python, #Note: 'python' must be in the PATH for the launch to work
-    vm_args: '-u', #Default vm arguments to add to a launch
-    environment: { #Default environment to use in the launch
-        'PYTHONUNBUFFERED': '1'
-    },
-    hyperlink: {
-        regexp: '.*(File) \"([^\"]*)\", line (\d*).*',
-        start: 1, #i.e.: start the hyperlink on 'File' (group 1 of the hyperlink).
-        filename: 2, #i.e.: group 2 of the regexp has the filename.
-        line: 3, #i.e.: group 1 of the regexp has the line in the file.
-    }
-}
-      </code></pre>
-      Other shortcuts may also be useful to the launching workflow:
-      <br/>
-      <br/>
-      <strong>Ctrl+Shift+F9</strong>: Terminates the last launch and relaunches it.
-      <br/>
-      <br/>
-      <strong>Ctrl+Alt+F9</strong>: Terminates all launches.
-      <br/>
-      <br/>
-      <strong>Ctrl+F11</strong>: Relaunches the last launch.
-
-
+        It's possible to customize the JavaScript editor JSHint integration by creating a custom <strong>.javascript.liclipseprefs</strong> file.<br/>
+        <br/>
+        The customization must be done per-project by creating a file such as:<br/>
+        <br/>
+            <strong>project/.settings/.javascript.liclipseprefs</strong><br/>
+            <br/>
+            or<br/>
+            <br/>
+            <strong>project/.javascript.liclipseprefs</strong><br/>
+        <br/>
+        The default file considered if none is provided is:<br/>
+        <br/>
+        <pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; color: #000000; background-color: #eee; font-size: 12px; border: 1px dashed #999999; line-height: 14px; padding: 5px; overflow: auto; width: 100%">
+          <code style="color:#000000;word-wrap:normal;">
+ # Option determining whether JSHint should be run 
+ enable_jshint: true
+ 
+ 
+ # Json contents to be passed to JSHint (it's passed directly as specified 
+ # and may be configured based on http://www.jshint.com/docs/options/)
+ jshint_opts: |
+     {
+         "undef": true,
+         "browser": true,
+         "jquery": true
+     }
+          </code></pre>
+        
+        Currently it's possible to customize whether jshint will be run by changing the value of <strong>enable_jshint</strong>
+        and the options used by JSHint to do the analysis through the value of <strong>jshint_options</strong>. Note that
+        JSHint also accepts comments inline in a file for configuration.<br/>
+        <br/>E.g.:<br/><strong>/* jshint undef: true, unused: true */</strong><br/>
+        in the top of a file.<br/>
+        <br/>
+        See:<br/>
+        <a href="http://www.jshint.com/docs/">http://www.jshint.com/docs</a><br/> 
+        <a href="http://www.jshint.com/docs/options">http://www.jshint.com/docs/options</a><br/> 
+        for more details.
     
                 <!-- <pre><code>$ cd your_repo_root/repo_name
                     $ git fetch origin

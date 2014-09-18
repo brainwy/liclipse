@@ -56,52 +56,72 @@
             </header>
             <section>
                 
+        It's possible to customize the HTML editor code-formatter and validation by creating a custom <strong>.html.liclipseprefs</strong> file.<br/>
+        <br/>
+        The customization must be done per-project by creating a file such as:<br/>
+        <br/>
+            <strong>project/.settings/.html.liclipseprefs</strong><br/>
+            <br/>
+            or<br/>
+            <br/>
+            <strong>project/.html.liclipseprefs</strong><br/>
+        <br/>
+        The default file considered if none is provided is:<br/>
+        <br/>
+        <pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; color: #000000; background-color: #eee; font-size: 12px; border: 1px dashed #999999; line-height: 14px; padding: 5px; overflow: auto; width: 100%">
+          <code style="color:#000000;word-wrap:normal;">
+    # If true, we'll show error markers for the file, 
+    # otherwise no errors will be collected nor shown.
+    collect_errors: true
 
-    It's possible to launch a file opened with the LiClipse editor (<strong>new on LiClipse 1.0.0</strong>):<br/>
-    <br/>
-    After opening an editor, <strong>F9</strong> may be used to launch it.<br/>
-    <br/>
-    The settings from the language are gotten to create a launch configuration
-    (and if the language doesn't have any
-    the launch settings set, a dialog will be opened so that the executable to
-    be used can be selected).<br/>
-    <br/>
-    When a given file is run, the errors on the console are hyperlinked based on the settings
-    set in the language.
-    <br/>
-    <br/>
-    Below is an example on how to configure a launch for a language (by editing the
-    related '.liclipse' file).
-    <br/>
-    <br/>
-    <pre style="font-family: Andale Mono, Lucida Console, Monaco, fixed, monospace; color: #000000; background-color: #eee; font-size: 12px; border: 1px dashed #999999; line-height: 14px; padding: 5px; overflow: auto; width: 100%">
-      <code style="color:#000000;word-wrap:normal;">
-launch: {
-    command: python, #Note: 'python' must be in the PATH for the launch to work
-    vm_args: '-u', #Default vm arguments to add to a launch
-    environment: { #Default environment to use in the launch
-        'PYTHONUNBUFFERED': '1'
-    },
-    hyperlink: {
-        regexp: '.*(File) \"([^\"]*)\", line (\d*).*',
-        start: 1, #i.e.: start the hyperlink on 'File' (group 1 of the hyperlink).
-        filename: 2, #i.e.: group 2 of the regexp has the filename.
-        line: 3, #i.e.: group 1 of the regexp has the line in the file.
-    }
-}
-      </code></pre>
-      Other shortcuts may also be useful to the launching workflow:
-      <br/>
-      <br/>
-      <strong>Ctrl+Shift+F9</strong>: Terminates the last launch and relaunches it.
-      <br/>
-      <br/>
-      <strong>Ctrl+Alt+F9</strong>: Terminates all launches.
-      <br/>
-      <br/>
-      <strong>Ctrl+F11</strong>: Relaunches the last launch.
+    # If true, the html will be fixed to be conformant 
+    # on a code format action by using: 
+    # http://about.validator.nu/htmlparser/
+    fix_html: true
+
+    # If true, code formatting will be enabled, if false 
+    # it'll be disabled.
+    enable_code_format: true
+
+    # The flags below represent properties set for the 
+    # jericho html parser. 
+    # More details at:
+    # http://jericho.htmlparser.net/docs/javadoc/net/htmlparser/jericho/SourceFormatter.html
+
+    # The indent is formed by writing n repetitions of 
+    # the string specified in the indent_string property, 
+    # where n is the depth of the indentation.
+    indent_string: '    '
+
+    # If the tidy_tags property is set to true, every tag 
+    # in the document is replaced with the output from its 
+    # Tag.tidy() method. If this property is set to false, 
+    # the tag from the original text is used, including 
+    # all white space, but with any new lines indented at 
+    # a depth one greater than that of the element.
+    tidy_tags: false
 
 
+    # If the collapse_whitespace property is set to true, 
+    #every string of one or more white space characters located 
+    # outside of a tag is replaced with a single space in 
+    # the output. White space located adjacent to a 
+    # non-inline-level element tag (except server tags) 
+    # may be removed.
+    collapse_whitespace: false
+
+    # If the indent_all_elements property is set to true, 
+    # every element appears indented on a new line, including 
+    # inline-level elements. This generates output that is
+    # a good representation of the actual document element 
+    # hierarchy, but is very likely to introduce white space
+    # that compromises the functional equivalency of the document.
+    indent_all_elements: false
+          </code></pre>
+          
+    So, it's possible to copy those contents to a .html.liclipseprefs file in the proper location
+    and change it as needed.
+        
     
                 <!-- <pre><code>$ cd your_repo_root/repo_name
                     $ git fetch origin
