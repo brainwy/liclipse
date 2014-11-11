@@ -80,7 +80,7 @@ def apply_to_contents(contents, basename, body, header):
     contents = template_contents % {'body': body, 'header': header}
 
     with open(os.path.join(page_dir, basename), 'w') as out_stream:
-        out_stream.write(contents)
+        out_stream.write("The LiClipse page is now located at: <a href=\"http://www.liclipse.com/\">http://www.liclipse.com/</a>")
 
 
 #===================================================================================================
